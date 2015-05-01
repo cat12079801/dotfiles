@@ -49,7 +49,7 @@ else
 fi
 
 
-# 以下はプロンプト (・ε・)ﾌﾟｯﾌﾟｸﾌﾟｰ
+# 以下はプロンプト (･ε･)ﾌﾟｯﾌﾟｸﾌﾟｰ
 PROMPT="%F{cyan}[%h#%* ${USER}@${HOST%%.*} %1~]%(!.#.$) %f"
 
 function rprompt-git-current-branch {
