@@ -35,6 +35,7 @@ export HISTFILE=${HOME}/.zsh_history
 export HISTSIZE=1000
 export SAVESIZE=100000
 setopt EXTENDED_HISTORY
+setopt RM_STAR_WAIT
 setopt hist_reduce_blanks
 setopt hist_no_store
 
