@@ -21,9 +21,12 @@ set smartcase
 set nobackup
 set backspace=start,eol,indent
 "set clipboard " 使いたいけど使えないのでいらない
-set swapfile
-set directory="~/.vim/tmp/swap"
-set viminfo+=n~/.vim/tmp/viminfo
+set noswapfile
+" set swapfile
+" set directory="~/.vim/vimdots/swap"
+set viminfo+=n~/.vim/vimdots/viminfo
+set undofile
+set undodir="~/.vim/vimdots/undo"
 set list
 set listchars=tab:>\
 set cursorline
