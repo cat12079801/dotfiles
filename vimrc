@@ -24,6 +24,7 @@ set backspace=start,eol,indent
 set noswapfile
 set list
 set listchars=tab:>\
+set cursorline
 
 set t_Co=256
 set laststatus=2
@@ -62,7 +63,7 @@ NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
 
 NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
@@ -172,10 +173,9 @@ let g:lightline = {
 
 
 
-" vim-indent-guides
-let g:indent_guides_auto_colors=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=236
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=239
+" indentLine
+let g:indentLine_color_term = 239
+let g:indentLine_char="|"
 
 
 " neocomplete and neocomplcache
