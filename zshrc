@@ -39,12 +39,13 @@ setopt RM_STAR_WAIT
 setopt hist_reduce_blanks
 setopt hist_no_store
 
+# http://qiita.com/s-age/items/2046185547c73a86f09f
 # lsコマンドの色
 if [ "$(uname)" = 'Darwin' ]; then
   export LSCOLORS=cxfxcxdxbxegedabagacad
   alias ls='ls -G'
 else
-  eval `dircolors ~/dotofiles/colorrc`
+  # eval `dircolors ~/dotofiles/colorrc`
   alias ls='ls --color=auto'
 fi
 
