@@ -25,10 +25,6 @@ alias clearl="clear; ls"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias emacs="vim"
-alias vsc="vim"
-alias subl="vim"
-alias atom="vim"
 
 # history
 export HISTFILE=${HOME}/.zsh_history
