@@ -69,16 +69,31 @@ NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
 NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'lilydjwg/colorizer'
-NeoBundle 'hail2u/vim-css3-syntax'
-" NeoBundle 'taichouchou2/html5.vim'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'mattn/emmet-vim'
 
+NeoBundleLazy 'hail2u/vim-css3-syntax',{
+      \ 'autoload': {
+      \   'filetypes': ['css']
+      \ }
+      \}
+NeoBundleLazy 'jelera/vim-javascript-syntax',{
+      \ 'autoload': {
+      \   'filetypes': ['javascript']
+      \ }
+      \}
+NeoBundleLazy 'mattn/emmet-vim',{
+      \ 'autoload': {
+      \   'filetypes': ['html', 'eruby']
+      \ }
+      \}
+NeoBundleLazy 'ctrlpvim/ctrlp.vim',{
+      \ 'autoload': {
+      \   'commands': ['CtrlP']
+      \ }
+      \}
 
 call neobundle#end()
 
@@ -214,3 +229,7 @@ endif
 " vim-gitgutter
 nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
+
+
+" ctrlp
+nnoremap <C-p> :CtrlP<CR>
