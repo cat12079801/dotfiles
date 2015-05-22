@@ -73,6 +73,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'lilydjwg/colorizer'
+NeoBundle 'vim-scripts/TwitVim'
 
 NeoBundleLazy 'hail2u/vim-css3-syntax',{
       \ 'autoload': {
@@ -133,6 +134,8 @@ function! s:my_tabline()  "{{{
 endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 "set showtabline=2 " 常にタブラインを表示
+
+let mapleader = ","
 
 " The prefix key.
 nnoremap    [Tag]   <Nop>
@@ -233,3 +236,6 @@ nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 
 " ctrlp
 nnoremap <C-p> :CtrlP<CR>
+
+" TwitVim
+nnoremap <silent> ,tw :PosttoTwitter<CR>
