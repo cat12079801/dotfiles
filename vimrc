@@ -74,6 +74,7 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'lilydjwg/colorizer'
 NeoBundle 'vim-scripts/TwitVim'
+NeoBundle 'vim-jp/vimdoc-ja'
 
 NeoBundleLazy 'hail2u/vim-css3-syntax',{
       \ 'autoload': {
