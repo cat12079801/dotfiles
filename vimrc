@@ -28,7 +28,7 @@ set viminfo+=n~/.vim/vimdots/viminfo
 set undofile
 set undodir="~/.vim/vimdots/undo"
 set list
-set listchars=tab:>\
+set listchars=tab:>\ ,trail:_
 set cursorline
 
 set t_Co=256
