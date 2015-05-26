@@ -91,11 +91,6 @@ NeoBundleLazy 'mattn/emmet-vim',{
       \   'filetypes': ['html', 'eruby']
       \ }
       \}
-NeoBundleLazy 'ctrlpvim/ctrlp.vim',{
-      \ 'autoload': {
-      \   'commands': ['CtrlP']
-      \ }
-      \}
 
 call neobundle#end()
 
