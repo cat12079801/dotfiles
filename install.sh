@@ -7,3 +7,5 @@ git clone https://github.com/Shougo/neobundle.vim.git
 ln -sf ~/dotfiles/vimrc ~/.vimrc
 ln -sf ~/dotfiles/zshrc ~/.zshrc
 ln -sf ~/dotfiles/zshenv ~/.zshenv
+ln -sf ~/dotfiles/zprofile ~/.zprofile
+chmod 644 ~/dotfiles/install.sh

@@ -28,7 +28,7 @@ set viminfo+=n~/.vim/vimdots/viminfo
 set undofile
 set undodir="~/.vim/vimdots/undo"
 set list
-set listchars=tab:>\
+set listchars=tab:>\ ,trail:_
 set cursorline
 
 set t_Co=256
@@ -90,15 +90,6 @@ NeoBundleLazy 'mattn/emmet-vim',{
       \ 'autoload': {
       \   'filetypes': ['html', 'eruby']
       \ }
-      \}
-NeoBundleLazy 'ctrlpvim/ctrlp.vim',{
-      \ 'autoload': {
-      \   'commands': ['CtrlP']
-      \ }
-      \}
-NeoBundleLazy 'Shougo/vimshell.vim',{
-      \  'autoload' : { 'commands' : [ 'VimShellBufferDir', 'VimShell' ] },
-      \  'depends': [ 'Shougo/vimproc' ],
       \}
 
 call neobundle#end()
