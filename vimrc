@@ -96,6 +96,10 @@ NeoBundleLazy 'ctrlpvim/ctrlp.vim',{
       \   'commands': ['CtrlP']
       \ }
       \}
+NeoBundleLazy 'Shougo/vimshell.vim',{
+      \  'autoload' : { 'commands' : [ 'VimShellBufferDir', 'VimShell' ] },
+      \  'depends': [ 'Shougo/vimproc' ],
+      \}
 
 call neobundle#end()
 
