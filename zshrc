@@ -41,7 +41,7 @@ if [ "$(uname)" = 'Darwin' -o "$(uname)" = 'FreeBSD' ]; then
   export LSCOLORS=cxGxcxdxbxegedabagacad
   alias ls='ls -G'
 else
-  # eval `dircolors ~/dotofiles/colorrc`
+  eval `dircolors ./dotfiles/dircolors -b`
   alias ls='ls --color=auto'
 fi
 
