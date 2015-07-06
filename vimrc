@@ -24,8 +24,15 @@ set noswapfile
 " set swapfile
 " set directory="~/.vim/vimdots/swap"
 set viminfo+=n~/.vim/vimdots/viminfo
-set undofile
-set undodir=~/.vim/vimdots/undo
+
+" http://nanasi.jp/articles/howto/note/powerlaunch-20100409.html#id14
+if version >= 704
+  set undofile
+  set undodir=~/.vim/vimdots/undo
+else
+  set noundofile
+endif
+
 set list
 set listchars=tab:>\ ,trail:_
 set cursorline
@@ -72,8 +79,11 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'lilydjwg/colorizer'
-NeoBundle 'vim-scripts/TwitVim'
 NeoBundle 'vim-jp/vimdoc-ja'
+
+if version >= 704
+  NeoBundle 'vim-scripts/TwitVim'
+endif
 
 NeoBundleLazy 'hail2u/vim-css3-syntax',{
       \ 'autoload': {
