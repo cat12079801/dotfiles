@@ -16,9 +16,8 @@ set showmatch
 set showcmd
 set ignorecase
 set smartcase
-"set backup
-"set backupdir="~/.vim/backup"
-set nobackup
+set backup
+set backupdir=~/.vim/backup
 set backspace=start,eol,indent
 "set clipboard " 使いたいけど使えないのでいらない
 set noswapfile
@@ -26,7 +25,7 @@ set noswapfile
 " set directory="~/.vim/vimdots/swap"
 set viminfo+=n~/.vim/vimdots/viminfo
 set undofile
-set undodir="~/.vim/vimdots/undo"
+set undodir=~/.vim/vimdots/undo
 set list
 set listchars=tab:>\ ,trail:_
 set cursorline
