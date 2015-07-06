@@ -3,8 +3,8 @@ syntax enable
 filetype plugin indent on
 set ruler
 set encoding=utf8
+set fileencodings=iso-2022-jp,sjis,euc-jp,utf-8
 scriptencoding
-"set fileencoding " Enterを要求されるのでとりあえず外す
 set number
 set expandtab
 set tabstop=2
