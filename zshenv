@@ -1,8 +1,5 @@
 export PATH="./bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH"
 
-# 覚悟を決めよう
-export LANG=en
-
 # rbenv
 if [ -d $HOME/.rbenv ]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
