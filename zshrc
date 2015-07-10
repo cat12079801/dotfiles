@@ -38,10 +38,10 @@ setopt hist_no_store
 # http://qiita.com/s-age/items/2046185547c73a86f09f
 # lsコマンドの色
 if [ "$(uname)" = 'Darwin' -o "$(uname)" = 'FreeBSD' ]; then
-  export LSCOLORS=cxfxcxdxbxegedabagacad
+  export LSCOLORS=cxGxcxdxbxegedabagacad
   alias ls='ls -G'
 else
-  # eval `dircolors ~/dotofiles/colorrc`
+  eval `dircolors ./dotfiles/dircolors -b`
   alias ls='ls --color=auto'
 fi
 

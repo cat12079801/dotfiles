@@ -3,8 +3,8 @@ syntax enable
 filetype plugin indent on
 set ruler
 set encoding=utf8
+set fileencodings=utf-8,iso-2022-jp,sjis,euc-jp
 scriptencoding
-"set fileencoding " Enterを要求されるのでとりあえず外す
 set number
 set expandtab
 set tabstop=2
@@ -16,17 +16,23 @@ set showmatch
 set showcmd
 set ignorecase
 set smartcase
-"set backup
-"set backupdir="~/.vim/backup"
-set nobackup
+set backup
+set backupdir=~/.vim/backup
 set backspace=start,eol,indent
 "set clipboard " 使いたいけど使えないのでいらない
 set noswapfile
 " set swapfile
 " set directory="~/.vim/vimdots/swap"
 set viminfo+=n~/.vim/vimdots/viminfo
-set undofile
-set undodir="~/.vim/vimdots/undo"
+
+" http://nanasi.jp/articles/howto/note/powerlaunch-20100409.html#id14
+if version >= 704
+  set undofile
+  set undodir=~/.vim/vimdots/undo
+else
+  set noundofile
+endif
+
 set list
 set listchars=tab:>\ ,trail:_
 set cursorline
@@ -73,8 +79,11 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'lilydjwg/colorizer'
-NeoBundle 'vim-scripts/TwitVim'
 NeoBundle 'vim-jp/vimdoc-ja'
+
+if version >= 704
+  NeoBundle 'vim-scripts/TwitVim'
+endif
 
 NeoBundleLazy 'hail2u/vim-css3-syntax',{
       \ 'autoload': {
