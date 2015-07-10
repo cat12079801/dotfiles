@@ -1,5 +1,7 @@
 cd ~
-mkdir -p .vim/{bundle,vimdots,backup}
+mkdir -p .vim/bundle
+mkdir -p .vim/vimdots
+mkdir -p .vim/backup
 cd ~/.vim/bundle
 git clone https://github.com/Shougo/neobundle.vim.git
 ln -sf ~/dotfiles/vimrc ~/.vimrc
