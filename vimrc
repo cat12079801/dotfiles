@@ -29,8 +29,6 @@ set viminfo+=n~/.vim/vimdots/viminfo
 if version >= 704
   set undofile
   set undodir=~/.vim/vimdots/undo
-else
-  set noundofile
 endif
 
 set list
