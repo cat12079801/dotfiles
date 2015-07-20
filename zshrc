@@ -25,6 +25,7 @@ alias clearl="clear; ls"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias histry-all="history -E 1"
 
 # history
 export HISTFILE=${HOME}/.zsh_history
@@ -34,6 +35,8 @@ setopt EXTENDED_HISTORY
 setopt RM_STAR_WAIT
 setopt hist_reduce_blanks
 setopt hist_no_store
+setopt inc_append_history
+bindkey "^r" history-incremental-pattern-search-backward
 
 # http://qiita.com/s-age/items/2046185547c73a86f09f
 # lsコマンドの色
