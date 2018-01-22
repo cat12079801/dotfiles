@@ -78,6 +78,7 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'lilydjwg/colorizer'
 NeoBundle 'vim-jp/vimdoc-ja'
+NeoBundle 'davidhalter/jedi-vim'
 
 if version >= 704
   NeoBundle 'vim-scripts/TwitVim'
@@ -242,3 +243,6 @@ nnoremap <C-p> :CtrlP<CR>
 
 " TwitVim
 nnoremap <silent> ,tw :PosttoTwitter<CR>
+
+" jedi-vim
+autocmd FileType python setlocal completeopt-=preview
