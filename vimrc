@@ -246,3 +246,14 @@ nnoremap <silent> ,tw :PosttoTwitter<CR>
 
 " jedi-vim
 autocmd FileType python setlocal completeopt-=preview
+
+" 4 jq command
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+    if 0 == a:0
+        let l:arg = "."
+    else
+        let l:arg = a:1
+    endif
+    execute "%! jq \"" . l:arg . "\""
+endfunction
