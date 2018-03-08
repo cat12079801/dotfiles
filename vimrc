@@ -79,6 +79,7 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'lilydjwg/colorizer'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'leafgarland/typescript-vim'
 
 if version >= 704
   NeoBundle 'vim-scripts/TwitVim'
