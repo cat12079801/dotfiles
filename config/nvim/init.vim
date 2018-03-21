@@ -1,4 +1,10 @@
+"basic ---------------------------------
 set number
+
+"lightline.vim ---------------------------------
+let g:lightline = {
+\ 'colorscheme': 'wombat'
+\ }
 
 let s:dein_dir = expand('~/.cache/dein')
 let s:toml_dir = expand('~/.config/nvim')
@@ -14,18 +20,6 @@ set runtimepath+=/home/cat/.cache/dein/repos/github.com/Shougo/dein.vim
 " Required:
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here:
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
-
-  " You can specify revision/branch/tag.
-  call dein#add('Shougo/deol.nvim', { 'rev': 'a1b5108fd' })
-
 
   " Immediate load
   call dein#load_toml(s:toml_dir . '/dein.toml', {'lazy': 0})
