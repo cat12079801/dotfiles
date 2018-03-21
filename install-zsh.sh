@@ -8,6 +8,12 @@ cd ~/.vim/bundle
 if [ ! -e ~/.vim/bundle/neobundle.vim/ ]; then
   git clone https://github.com/Shougo/neobundle.vim.git
 fi
+if [ ! -e ~/.cache/dein ]; then
+  mkdir ~/.vim/dein.vim/
+  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > dein.vim-installer.sh
+  sh ./dein.vim-installer.sh ~/.cache/dein
+  rm dein.vim-installer.sh
+fi
 ln -sf ~/dotfiles/vimrc ~/.vimrc
 ln -sf ~/dotfiles/zshrc ~/.zshrc
 ln -sf ~/dotfiles/zshenv ~/.zshenv
