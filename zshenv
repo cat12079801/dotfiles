@@ -11,5 +11,13 @@ if [[ -s ~/.nvm/nvm.sh ]];
   then source ~/.nvm/nvm.sh
 fi
 
+# pyenv
+if [[ -d ~/.pyenv ]]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
 # $HOME/.zshenv.local が存在すれば読み込み
 [ -f $HOME/.zshenv.local ] && source $HOME/.zshenv.local
