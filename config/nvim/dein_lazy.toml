@@ -1,3 +1,7 @@
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 on_event = 'BufRead'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
