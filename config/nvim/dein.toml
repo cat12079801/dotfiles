@@ -25,4 +25,7 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'itchyny/lightline.vim'
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'

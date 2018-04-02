@@ -1,11 +1,13 @@
 "basic ---------------------------------
 set number
+set cursorline
 
-"lightline.vim ---------------------------------
-let g:lightline = {
-\ 'colorscheme': 'wombat'
-\ }
+"python for neovim ------------------------------
+let g:python_host_prog = $HOME . '/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = $HOME . '/.pyenv/versions/neovim3/bin/python'
 
+
+" dein ---------------------------------
 let s:dein_dir = expand('~/.cache/dein')
 let s:toml_dir = expand('~/.config/nvim')
 
