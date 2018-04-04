@@ -66,7 +66,7 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/home/cat/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
 if dein#load_state(s:dein_dir)
