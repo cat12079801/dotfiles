@@ -1,0 +1,15 @@
+$ pyenv install 2.7.x
+$ pyenv install 3.x.x
+
+$ pyenv virtualenv 2.7.x neovim2
+$ pyenv virtualenv 3.x.x neovim3
+
+$ pyenv activate neovim2
+$ pip install neovim
+
+$ pyenv activate neovim3
+$ pip install neovim
+
+
+# NOTE
+https://qiita.com/lighttiger2505/items/4c6807b7508afe7d4a07
