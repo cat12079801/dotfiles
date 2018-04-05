@@ -1,6 +1,7 @@
 [[plugins]]
 repo = '~/.cache/dein/repos/github.com/Shougo/dein.vim'
 
+
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 hook_post_update = '''
@@ -16,6 +17,7 @@ hook_post_update = '''
   let g:dein#plugin.build = cmd
 '''
 
+
 [[plugins]]
 repo = 'jonathanfilip/vim-lucius'
 hook_add = '''
@@ -24,11 +26,17 @@ hook_add = '''
   "au MyAutoCmd VimEnter * nested colorscheme hybrid
 '''
 
+
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
   let g:deoplete#enable_at_startup = 1
 '''
 
+
 [[plugins]]
 repo = 'vim-airline/vim-airline'
+
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
