@@ -1,6 +1,13 @@
 "basic ---------------------------------
 set number
 set cursorline
+set tabstop=2
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set smartindent
+set list
+set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%
 "basic ---------------------------------
 
 "tab pages -------------------------------------
@@ -48,6 +55,20 @@ map <silent> [Tag]n :tabnext<CR>
 map <silent> [Tag]p :tabprevious<CR>
 " tp 前のタブ
 "tab pages -------------------------------------
+
+
+"change tabstop by extension ------------------------------
+if has("autocmd")
+  "ファイルタイプの検索を有効にする
+  filetype plugin on
+  "ファイルタイプに合わせたインデントを利用
+  filetype indent on
+  "sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
+  autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
+  autocmd FileType go          setlocal sw=4 sts=4 ts=4 noet
+endif
+"change tabstop by extension ------------------------------
+
 
 "python for neovim ------------------------------
 let g:python_host_prog = $HOME . '/.pyenv/versions/neovim2/bin/python'
