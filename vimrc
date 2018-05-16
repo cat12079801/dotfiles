@@ -235,8 +235,8 @@ endif
 
 
 " vim-gitgutter
-nnoremap <silent> gg :<C-u>GitGutterToggle<CR>
-nnoremap <silent> gh :<C-u>GitGutterLineHighlightsToggle<CR>
+nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
+nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 nnoremap <silent> gn :<C-u>GitGutterNextHunk<CR>
 nnoremap <silent> gp :<C-u>GitGutterPrevHunk<CR>
 
