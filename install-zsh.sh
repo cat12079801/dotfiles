@@ -30,6 +30,7 @@ ln -sf ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/gitconfig ~/.gitconfig
 mkdir -p ~/.config/
 ln -sf ~/dotfiles/config/nvim ~/.config/nvim
+ln -sf ~/dotfiles/config/sxiv ~/.config/sxiv
 cd
 source ~/.zprofile
 source ~/.zshenv
