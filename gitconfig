@@ -10,3 +10,6 @@
   ff = false
 [pull]
   ff = only
+[core]
+  pager = less -cm
+  quotepath = false
