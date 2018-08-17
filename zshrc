@@ -27,6 +27,14 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias histry-all="history -E 1"
 
+# copy to clipboard
+if [ "$(uname)" = 'Darwin' ]; then
+  alias clip="pbcopy"
+elif [ "$(uname)" = 'Linux' ]; then
+  alias clip="xsel -bi"
+fi
+
+
 # history
 export HISTFILE=${HOME}/.zsh_history
 export HISTSIZE=1000
