@@ -46,3 +46,7 @@ hook_add = '''
   nnoremap <silent> gn :<C-u>GitGutterNextHunk<CR>
   nnoremap <silent> gp :<C-u>GitGutterPrevHunk<CR>
 '''
+
+
+[[plugins]]
+repo = 'tpope/vim-surround'
