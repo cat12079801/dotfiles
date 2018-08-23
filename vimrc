@@ -80,6 +80,7 @@ NeoBundle 'lilydjwg/colorizer'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'tpope/vim-surround'
 
 if version >= 704
   NeoBundle 'vim-scripts/TwitVim'
