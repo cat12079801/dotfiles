@@ -5,7 +5,7 @@ source ./lazyenv.bash
 # rbenv
 _rbenv_init() {
   if [ -d $HOME/.rbenv ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
+    export PATH="$PATH:$HOME/.rbenv/bin"
     eval "$(rbenv init -)"
   fi
 }
@@ -21,7 +21,7 @@ eval "$(lazyenv.load _npm_init node npm)"
 _pyenv_init() {
   if [[ -d ~/.pyenv ]]; then
     export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
+    export PATH="$PATH:$PYENV_ROOT/bin"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
   fi
