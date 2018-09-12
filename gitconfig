@@ -13,3 +13,5 @@
 [core]
   pager = less -cm
   quotepath = false
+[include]
+  path = ~/.gitconfig.local
