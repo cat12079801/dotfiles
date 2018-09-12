@@ -1,6 +1,6 @@
 export PATH="./bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH"
 
-source ./lazyenv.bash
+source $HOME/dotfiles/lazyenv.bash
 
 # rbenv
 _rbenv_init() {
