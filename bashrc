@@ -37,38 +37,27 @@ fi
 function git_branch_name() {
   str=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
   if [ -n "$str" ]; then
-    echo '<'$str'>'
+    echo -ne '<'$str'>'
   fi
 }
 
 function git_branch_color() {
   st=`git status 2> /dev/null`
   if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
-    echo $GREEN
+    echo -ne $GREEN
   elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
-    echo $BROWN
+    echo -ne $BROWN
   elif [[ -n `echo "$st" | grep "^Untracked"` ]]; then
-    echo $LIGHT_RED
+    echo -ne $LIGHT_RED
   else
-    echo $RED
+    echo -ne $RED
   fi
 }
 
-PS1="$PURPLE\!$RESTORE-$CYAN\u$RESTORE@$GREEN\h:$YELLOW\w$RESTORE `git_branch_color``git_branch_name`$RESTORE\n$ "
+# $1: fg color, $2: bg color
+function 256_COLOR () { echo -ne "\[\033[38;5;$1m\033[48;5;$2m\]\]"; }
 
-GREEN="\[\033[0;32m\]"
-CYAN="\[\033[0;36m\]"
-RED="\[\033[0;31m\]"
-PURPLE="\[\033[0;35m\]"
-BROWN="\[\033[0;33m\]"
-LIGHT_GRAY="\[\033[0;37m\]"
-LIGHT_BLUE="\[\033[1;34m\]"
-LIGHT_GREEN="\[\033[1;32m\]"
-LIGHT_CYAN="\[\033[1;36m\]"
-LIGHT_RED="\[\033[1;31m\]"
-LIGHT_PURPLE="\[\033[1;35m\]"
-YELLOW="\[\033[1;33m\]"
-WHITE="\[\033[1;37m\]"
+PS1="`256_COLOR 29 0`\!#\u@\h:\w$RESTORE `git_branch_color``git_branch_name`$RESTORE\n$ "
 RESTORE="\[\033[0m\]"
 
 # cdコマンド実行後、lsを実行する
