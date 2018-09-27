@@ -69,7 +69,7 @@ function git_branch_color() {
   elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
     echo -ne `256_COLOR 3 0`
   elif [[ -n `echo "$st" | grep "^Untracked"` ]]; then
-    echo -ne `256_COLOR 9 0`
+    echo -ne `256_COLOR 9 0`$BOLD
   else
     echo -ne `256_COLOR 1 0`
   fi
