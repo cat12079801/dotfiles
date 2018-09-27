@@ -34,46 +34,42 @@ else
   alias ls='ls --color=auto'
 fi
 
-
-# 以下はプロンプト (･ε･)ﾌﾟｯﾌﾟｸﾌﾟｰ
-PROMPT="%F{cyan}[%h#%* ${USER}@${HOST%%.*} %1~]%(!.#.$) %f"
-
-function rprompt-git-current-branch {
-  local name st color
-
-  if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
-    return
+function git_branch_name() {
+  str=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
+  if [ -n "$str" ]; then
+    echo '<'$str'>'
   fi
-  name=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
-  if [[ -z $name ]]; then
-    return
-  fi
+}
+
+function git_branch_color() {
   st=`git status 2> /dev/null`
   if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
-    color=${fg[green]}
+    echo $GREEN
   elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
-    color=${fg[yellow]}
-  elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
-    color=${fg_bold[red]}
+    echo $BROWN
+  elif [[ -n `echo "$st" | grep "^Untracked"` ]]; then
+    echo $LIGHT_RED
   else
-    color=${fg[red]}
-  fi
-
-  # %{...%} は囲まれた文字列がエスケープシーケンスであることを明示する
-  # これをしないと右プロンプトの位置がずれる
-  echo "%{$color%}$name%{$reset_color%} "
-}
-
-function puppukupu {
-  if [ $? -eq 0 ]; then
-    RPROMPT='[`rprompt-git-current-branch`%~]'
-  else
-    RPROMPT="%{${fg[magenta]}%}(･ε･)ﾌﾟｯﾌﾟｸﾌﾟｰ%{${reset_color}%}"
+    echo $RED
   fi
 }
 
-# プロンプトが表示されるたびにプロンプト文字列を評価、置換する
-precmd_functions=($precmd_functions puppukupu)
+PS1="$PURPLE\!$RESTORE-$CYAN\u$RESTORE@$GREEN\h:$YELLOW\w$RESTORE `git_branch_color``git_branch_name`$RESTORE\n$ "
+
+GREEN="\[\033[0;32m\]"
+CYAN="\[\033[0;36m\]"
+RED="\[\033[0;31m\]"
+PURPLE="\[\033[0;35m\]"
+BROWN="\[\033[0;33m\]"
+LIGHT_GRAY="\[\033[0;37m\]"
+LIGHT_BLUE="\[\033[1;34m\]"
+LIGHT_GREEN="\[\033[1;32m\]"
+LIGHT_CYAN="\[\033[1;36m\]"
+LIGHT_RED="\[\033[1;31m\]"
+LIGHT_PURPLE="\[\033[1;35m\]"
+YELLOW="\[\033[1;33m\]"
+WHITE="\[\033[1;37m\]"
+RESTORE="\[\033[0m\]"
 
 # cdコマンド実行後、lsを実行する
 function cd() {
