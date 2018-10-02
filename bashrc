@@ -1,6 +1,7 @@
 # 基本
+export LESSCHARSET=utf-8
 export EDITOR=vim
-export LANG=ja_JP.UTF-8
+export LANG=en_US.UTF-8
 
 # Escの後受付時間を短く
 KEYTIMEOUT=1
@@ -12,6 +13,8 @@ set -o vi
 complete -cf sudo
 
 # エイリアス
+alias vim="nvim"
+alias tmux="tmux -2"
 alias grep="grep --color"
 alias clearl="clear; ls"
 alias ..="cd .."
@@ -87,5 +90,5 @@ function cd() {
   builtin cd $@ && ls;
 }
 
-# $HOME/.zshrc.local が存在すれば読み込み
-[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
+# $HOME/.bashrc.local が存在すれば読み込み
+[ -f $HOME/.bashrc.local ] && source $HOME/.bashrc.local
