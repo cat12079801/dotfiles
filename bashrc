@@ -2,6 +2,7 @@
 export LESSCHARSET=utf-8
 export EDITOR=vim
 export LANG=en_US.UTF-8
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Escの後受付時間を短く
 KEYTIMEOUT=1
@@ -56,6 +57,18 @@ NOBLINK="\033[25m"
 NOREVERSE="\033[27m"
 NOHIDDEN="\033[28m"
 
+# TODO: apply all envs. (now only show pyenv)
+function show_virtual_env() {
+  if [ -n "$VIRTUAL_ENV" ]; then
+    if [ -n "$PYENV_VIRTUAL_ENV" ]; then
+      pyenv=`echo $PYENV_VIRTUAL_ENV | awk -F'/' '{printf "py:%s/%s", $7, $5}'`
+    fi
+    echo -ne `256_COLOR 239 0`'<'$pyenv'>'$RESTORE
+  else
+    echo -ne ''
+  fi
+}
+
 function git_branch_name() {
   str=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
   if [ -n "$str" ]; then
@@ -81,7 +94,7 @@ function git_branch_color() {
 # $1: fg color, $2: bg color
 function 256_COLOR() { echo -ne "\033[38;5;$1m\033[48;5;$2m"; }
 
-PS1="`256_COLOR 29 0`\!#\t `256_COLOR 35 0`$UNDERLINE\u@\h$RESTORE`256_COLOR 29 0`:\w$RESTORE \$(git_branch_color)\$(git_branch_name)$RESTORE\n$ "
+PS1="`256_COLOR 29 0`\!#\t `256_COLOR 35 0`$UNDERLINE\u@\h$RESTORE`256_COLOR 29 0`:$RESTORE\$(show_virtual_env)`256_COLOR 29 0`\w$RESTORE \$(git_branch_color)\$(git_branch_name)$RESTORE\n$ "
 
 ###### PROMPT
 
