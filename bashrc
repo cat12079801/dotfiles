@@ -61,7 +61,7 @@ NOHIDDEN="\033[28m"
 function show_virtual_env() {
   if [ -n "$VIRTUAL_ENV" ]; then
     if [ -n "$PYENV_VIRTUAL_ENV" ]; then
-      pyenv=`echo $PYENV_VIRTUAL_ENV | awk -F'/' '{printf "py:%s/%s", $7, $5}'`
+      pyenv=`echo $PYENV_VIRTUAL_ENV | awk -F'/' '{printf "py:%s/%s", $(NF), $(NF-2)}'`
     fi
     echo -ne `256_COLOR 239 0`'<'$pyenv'>'$RESTORE
   else
