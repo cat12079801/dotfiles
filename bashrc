@@ -22,6 +22,11 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias histry-all="history -E 1"
+if [ "$(uname)" = 'Darwin' ]; then
+  alias clip="pbcopy" # Mac
+elif [ "$(uname)" = 'Linux' ]; then
+  alias clip="xsel -bi" # Ubuntu
+fi
 
 # ctrl-w で'/'手前まで削除
 stty werase undef
