@@ -33,9 +33,16 @@ stty werase undef
 bind '"\C-w": unix-filename-rubout'
 
 # history
-export HISTFILE=${HOME}/.zsh_history
-export HISTSIZE=1000
+function share_history {
+    history -a
+    history -c
+    history -r
+}
+PROMPT_COMMAND='share_history'
+export HISTCONTROL=ignoredups
 export SAVESIZE=100000
+shopt -u histappend
+export HISTSIZE=10000
 
 # http://qiita.com/s-age/items/2046185547c73a86f09f
 # lsコマンドの色
