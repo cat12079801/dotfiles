@@ -1,10 +1,8 @@
 #!/bin/bash
 
-cd ~
 mkdir -p .vim/bundle
 mkdir -p .vim/vimdots
 mkdir -p .vim/backup
-cd ~/.vim/bundle
 
 if [ ! -e ~/.pyenv/ ]; then
   git clone https://github.com/yyuu/pyenv.git ~/.pyenv
@@ -23,8 +21,9 @@ ln -sf ~/dotfiles/bashrc ~/.bashrc
 ln -sf ~/dotfiles/bash_profile ~/.bash_profile
 ln -sf ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/gitconfig ~/.gitconfig
-ln -sf ~/dotfiles/config ~/.config
-cd
+mkdir -p ~/.config
+ln -sf ~/dotfiles/config/nvim ~/.config/nvim
+ln -sf ~/dotfiles/config/sxiv ~/.config/sxiv
 
 echo ""
 echo "exec following command!!!"

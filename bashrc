@@ -23,6 +23,10 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias histry-all="history -E 1"
 
+# ctrl-w で'/'手前まで削除
+stty werase undef
+bind '"\C-w": unix-filename-rubout'
+
 # history
 export HISTFILE=${HOME}/.zsh_history
 export HISTSIZE=1000
