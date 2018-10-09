@@ -15,3 +15,5 @@
   quotepath = false
 [include]
   path = ~/.gitconfig.local
+[push]
+	default = simple
