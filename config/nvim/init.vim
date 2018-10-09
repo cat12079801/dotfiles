@@ -65,6 +65,7 @@ if has("autocmd")
   filetype indent on
   "sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
   autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
+  autocmd FileType javascript  setlocal sw=4 sts=4 ts=4 et
   autocmd FileType go          setlocal sw=4 sts=4 ts=4 noet
 endif
 "change tabstop by extension ------------------------------
