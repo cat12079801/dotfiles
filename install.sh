@@ -1,8 +1,8 @@
 #!/bin/bash
 
-mkdir -p .vim/bundle
-mkdir -p .vim/vimdots
-mkdir -p .vim/backup
+mkdir -p ~/.vim/bundle
+mkdir -p ~/.vim/vimdots
+mkdir -p ~/.vim/backup
 
 if [ ! -e ~/.pyenv/ ]; then
   git clone https://github.com/yyuu/pyenv.git ~/.pyenv
@@ -14,6 +14,12 @@ if [ ! -e ~/.cache/dein ]; then
   curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > dein.vim-installer.sh
   sh ./dein.vim-installer.sh ~/.cache/dein
   rm dein.vim-installer.sh
+fi
+
+mkdir -p ~/.tmux/plugins/tpm
+
+if [ ! -e ~/.tmux/plugins/tpm ]; then
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
 ln -sf ~/dotfiles/vimrc ~/.vimrc
