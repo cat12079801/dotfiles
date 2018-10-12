@@ -3,7 +3,8 @@
 [alias]
   st = status
   tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
-  br = branch -v
+  br = branch -vv
+  push = push -u
   mushi = update-index --assume-unchanged
   mushishinai = update-index --no-assume-unchanged
 [merge]
