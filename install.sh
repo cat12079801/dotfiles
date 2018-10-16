@@ -22,6 +22,11 @@ if [ ! -e ~/.tmux/plugins/tpm ]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
+if [ ! -e ~/.fzf/ ]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install --key-bindings --completion --no-update-rc --no-zsh --no-fish
+fi
+
 ln -sf ~/dotfiles/vimrc ~/.vimrc
 ln -sf ~/dotfiles/bashrc ~/.bashrc
 ln -sf ~/dotfiles/bash_profile ~/.bash_profile

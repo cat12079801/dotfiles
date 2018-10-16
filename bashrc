@@ -3,6 +3,7 @@ export LESSCHARSET=utf-8
 export EDITOR=vim
 export LANG=en_US.UTF-8
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export FZF_DEFAULT_OPTS='--preview "head -100 {}"'
 
 # Escの後受付時間を短く
 KEYTIMEOUT=1
@@ -118,6 +119,8 @@ PS1="`256_COLOR 29 0`\!#\t `256_COLOR 35 0`$UNDERLINE\u@\h$RESTORE`256_COLOR 29 
 function cd() {
   builtin cd $@ && ls;
 }
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # $HOME/.bashrc.local が存在すれば読み込み
 [ -f $HOME/.bashrc.local ] && source $HOME/.bashrc.local
