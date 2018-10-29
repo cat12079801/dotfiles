@@ -17,7 +17,7 @@ pyenv virtualenv $PYTHON3 neovim3
 echo ""
 echo "exec following command!!!"
 echo "###########################"
-echo "source ~/.bash_profile; pyenv activate neovim2; pip install neovim; pyenv activate neovim3; pip install neovim; source deactivate"
+echo "source ~/.bash_profile; pyenv activate neovim2; pip install neovim jedi; pyenv activate neovim3; pip install neovim jedi; source deactivate"
 echo "###########################"
 
 # NOTE

@@ -28,6 +28,11 @@ hook_add = '''
 
 
 [[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = 'python'
+
+
+[[plugins]]
 repo = 'lilydjwg/colorizer'
 on_ft = ['css', 'html', 'sass', 'scss', 'vim', 'less', 'md']
 

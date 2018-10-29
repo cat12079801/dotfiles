@@ -8,6 +8,7 @@ set softtabstop=2
 set smartindent
 set list
 set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%
+let mapleader = ','
 "basic ---------------------------------
 
 "tab pages -------------------------------------
