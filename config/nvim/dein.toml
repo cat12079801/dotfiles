@@ -95,3 +95,7 @@ repo = 'cohama/lexima.vim'
 
 [[plugins]]
 repo = 'w0rp/ale'
+
+
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
