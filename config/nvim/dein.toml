@@ -87,3 +87,11 @@ merged = '0'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 depends = 'fzf'
+
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+
+
+[[plugins]]
+repo = 'w0rp/ale'
