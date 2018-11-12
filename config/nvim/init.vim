@@ -60,6 +60,8 @@ map <silent> [Tag]p :tabprevious<CR>
 
 "change tabstop by extension ------------------------------
 if has("autocmd")
+  "登録されていないファイルタイプを登録
+  autocmd BufRead,BufNewFile *.ts   setfiletype typescript
   "ファイルタイプの検索を有効にする
   filetype plugin on
   "ファイルタイプに合わせたインデントを利用
@@ -68,6 +70,7 @@ if has("autocmd")
   autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
   autocmd FileType javascript  setlocal sw=4 sts=4 ts=4 et
   autocmd FileType go          setlocal sw=4 sts=4 ts=4 noet
+  autocmd FileType typescript  setlocal sw=4 sts=4 ts=4 et
 endif
 "change tabstop by extension ------------------------------
 

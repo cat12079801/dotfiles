@@ -53,3 +53,8 @@ on_ft = ['css', 'html', 'sass', 'scss', 'vim', 'less', 'md']
 [[plugins]]
 repo = 'simeji/winresizer'
 on_cmd = ['vs', 'sp']
+
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = ['typescript']
