@@ -29,6 +29,39 @@ elif [ "$(uname)" = 'Linux' ]; then
   alias clip="xsel -bi" # Ubuntu
 fi
 
+# ----------------------
+# Git Aliases
+# ----------------------
+git_alias() {
+  __git_complete $1 "_git_$2"
+  alias $1="git ${*:2:($#-1)}"
+}
+
+git_alias ga add
+git_alias gaa add .
+git_alias gau add -u
+git_alias gb br
+git_alias gbd branch -d
+git_alias gc commit
+git_alias gcm commit -m
+git_alias gca commit --amend
+git_alias gc checkout
+git_alias gcb checkout -b
+git_alias gd diff
+git_alias gl log --date=iso --decorate
+git_alias glp log --date=iso --decorate --patch
+git_alias glg log --date=iso --graph --decorate --oneline --all
+git_alias glc log --pretty=\'%H %s\'
+git_alias glt tr
+git_alias gs status -bs
+git_alias gss status
+git_alias gf fetch
+git_alias gp pull
+git_alias gst stash
+git_alias gstl stash list
+git_alias gstp stash pop
+git_alias gstd stash drop
+
 # ctrl-w で'/'手前まで削除
 stty werase undef
 bind '"\C-w": unix-filename-rubout'
