@@ -24,6 +24,8 @@ fi
 # $HOME/.bash_profile.local が存在すれば読み込み
 [ -f $HOME/.bash_profile.local ] && source $HOME/.bash_profile.local
 
+[ -f $HOME/dotfiles/git-completion.bash ] && source $HOME/dotfiles/git-completion.bash
+
 if [ -f ~/.bashrc ] ; then
   . ~/.bashrc
 fi
