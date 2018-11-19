@@ -21,6 +21,11 @@ if [ -d ~/.pyenv ]; then
   eval "$(pyenv virtualenv-init -)"
 fi
 
+# rust
+if [ -d ~/.cargo ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
 # $HOME/.bash_profile.local が存在すれば読み込み
 [ -f $HOME/.bash_profile.local ] && source $HOME/.bash_profile.local
 
