@@ -9,6 +9,7 @@ set smartindent
 set list
 set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%
 set conceallevel=0
+set signcolumn=yes
 let mapleader = ','
 "basic ---------------------------------
 
