@@ -1,0 +1,19 @@
+
+
+# ======== Format ========
+# :emoji: Subject #[issue number]
+#
+# Commit body...
+#
+# ======== Emoji Prefix ========
+# 🎉 :tada: Initial commit.
+# 🌟 :star2: New features.
+# 🔧 :wrench: Chainging configuration files.
+# 📝 :pencil: Writing docs.
+# 👮 :cop: Fixing Typos.
+# 🔥 :fire: Removing code or files.
+# 🐛 :bug: Fixing a bug.
+# 🌀 :cyclone: Removing linter warnings.
+# 💧 :droplet: Fix to pass the test.
+# 😎 :sunglasses: Add some tests.
+# 🌈 :rainbow: Refactoring code.

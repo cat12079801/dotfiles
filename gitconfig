@@ -8,6 +8,8 @@
   push = push -u
   mushi = update-index --assume-unchanged
   mushishinai = update-index --no-assume-unchanged
+[commit]
+  template = ~/dotfiles/commit_template
 [merge]
   ff = false
 [pull]
