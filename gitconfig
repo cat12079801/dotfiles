@@ -1,7 +1,7 @@
 [color]
   ui = true
 [alias]
-  alias = !git config -l | grep ^alias | sed -e 's/alias.//' | awk -F'=' '{printf \"\\033[1m%-15s\\033[0m %s\\n\", $1, $2}'
+  alias = !cat ~/dotfiles/bashrc | grep git_alias | grep -v '{'
   st = status
   tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
   br = branch -vv

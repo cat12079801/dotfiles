@@ -45,6 +45,8 @@ fi
 # ----------------------
 # Git Aliases
 # ----------------------
+[ -f $HOME/dotfiles/git-completion.bash ] && source $HOME/dotfiles/git-completion.bash
+
 git_alias() {
   __git_complete $1 "_git_$2"
   alias $1="git ${*:2:($#-1)}"
@@ -55,8 +57,7 @@ git_alias gaa add .
 git_alias gau add -u
 git_alias gb br
 git_alias gbd branch -d
-git_alias gc commit
-git_alias gcm commit -m
+git_alias gcm commit
 git_alias gca commit --amend
 git_alias gc checkout
 git_alias gcb checkout -b
