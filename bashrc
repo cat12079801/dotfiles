@@ -4,6 +4,11 @@ export EDITOR=vim
 export LANG=en_US.UTF-8
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export FZF_DEFAULT_OPTS='--preview "head -100 {}"'
+if which ag >/dev/null 2>&1; test $? -eq 0 ; then
+  export FZF_DEFAULT_COMMAND='ag -g ""'
+else
+  echo '`ag` is not installed!'
+fi
 
 # Escの後受付時間を短く
 KEYTIMEOUT=1

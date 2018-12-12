@@ -41,6 +41,8 @@ endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 
 " The prefix key.
+nmap ; :Buffers
+nmap f :Files
 nnoremap    [Tag]   <Nop>
 nmap    t [Tag]
 " Tab jump
