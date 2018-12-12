@@ -105,3 +105,7 @@ hook_add = '''
   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
   map <C-n> :NERDTreeToggle<CR>
 '''
+
+
+[[plugins]]
+repo = 'simeji/winresizer'
