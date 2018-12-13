@@ -67,6 +67,10 @@ hook_add = '''
   nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
   nnoremap <silent> gn :<C-u>GitGutterNextHunk<CR>
   nnoremap <silent> gp :<C-u>GitGutterPrevHunk<CR>
+  let g:gitgutter_sign_added = '●'
+  let g:gitgutter_sign_modified = '●'
+  let g:gitgutter_sign_removed = '●'
+  let g:gitgutter_sign_modified_removed = '●'
   set updatetime=100
 '''
 
