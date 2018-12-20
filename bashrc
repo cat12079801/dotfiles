@@ -4,7 +4,7 @@ export EDITOR=vim
 export LANG=en_US.UTF-8
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export FZF_DEFAULT_OPTS='--preview "head -100 {}"'
-if which ag >/dev/null 2>&1; test $? -eq 0 ; then
+if type ag >/dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='ag -g ""'
 else
   echo '`ag` is not installed!'
@@ -43,8 +43,10 @@ if [ "$(uname)" = 'Darwin' ]; then
 elif [ "$(uname)" = 'Linux' ]; then
   alias clip="xsel -bi" # Ubuntu
 fi
-if which exa 1>/dev/null; test $? -eq 0 ; then
-  alias ls="exa"
+if type lsd >/dev/null 2>&1; then
+  alias ls="lsd"
+else
+  echo '`ls` is not installed!'
 fi
 
 # ----------------------
