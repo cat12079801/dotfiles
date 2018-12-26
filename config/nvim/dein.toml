@@ -122,3 +122,14 @@ hook_add = '''
 
 [[plugins]]
 repo = 'simeji/winresizer'
+
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+  let g:EasyMotion_do_mapping = 0
+  let g:EasyMotion_smartcase = 1
+  map <Leader>s <Plug>(easymotion-s2)
+  map <Leader>j <Plug>(easymotion-j)
+  map <Leader>k <Plug>(easymotion-k)
+'''
