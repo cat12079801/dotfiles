@@ -7,7 +7,7 @@ export FZF_DEFAULT_OPTS='--preview "head -100 {}"'
 if type ag >/dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='ag -g ""'
 else
-  echo '`ag` is not installed!'
+  echo '`ag` is not installed!' >&2
 fi
 
 # Escの後受付時間を短く
@@ -46,7 +46,7 @@ fi
 if type lsd >/dev/null 2>&1; then
   alias ls="lsd"
 else
-  echo '`ls` is not installed!'
+  echo '`lsd` is not installed!' >&2
 fi
 
 # ----------------------
@@ -160,9 +160,19 @@ PS1="`256_COLOR 29 0`\!#\t `256_COLOR 35 0`$UNDERLINE\u@\h$RESTORE`256_COLOR 29 
 ###### PROMPT
 
 # cdコマンド実行後、lsを実行する
-function cd() {
-  builtin cd $@ && ls;
+autols(){
+  if [[ -n $AUTOLS_DIR ]] && [[ $AUTOLS_DIR != $PWD ]] ; then
+    [[ `/bin/ls -f | grep -v "\..*" | wc -l` -le 100 ]]\
+      && ls || echo -e "\
+ 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\n\
+ 🔥`256_COLOR 196`!!!too many files!!!🔥\n\
+ 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥" >&2
+  fi
+
+  AUTOLS_DIR="${PWD}"
 }
+
+export PROMPT_COMMAND="autols"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
