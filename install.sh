@@ -16,8 +16,6 @@ if [ ! -e ~/.cache/dein ]; then
   rm dein.vim-installer.sh
 fi
 
-mkdir -p ~/.tmux/plugins/tpm
-
 if [ ! -e ~/.tmux/plugins/tpm ]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
