@@ -104,10 +104,6 @@ depends = 'fzf'
 
 
 [[plugins]]
-repo = 'cohama/lexima.vim'
-
-
-[[plugins]]
 repo = 'w0rp/ale'
 
 
