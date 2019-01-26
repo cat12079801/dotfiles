@@ -136,3 +136,10 @@ hook_add = '''
   hi link EasyMotionTarget2First Statement
   hi link EasyMotionTarget2Second Directory
 '''
+
+
+[[plugins]]
+repo = 'andymass/vim-matchup'
+hook_add = '''
+  let g:loaded_matchit = 1
+'''
