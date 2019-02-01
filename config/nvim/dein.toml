@@ -143,3 +143,23 @@ repo = 'andymass/vim-matchup'
 hook_add = '''
   let g:loaded_matchit = 1
 '''
+
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+  nmap <silent> <Leader>d :LspDefinition<CR>
+  nmap <silent> <Leader>p :LspHover<CR>
+  nmap <silent> <Leader>r :LspReferences<CR>
+  nmap <silent> <Leader>i :LspImplementation<CR>
+
+  au User lsp_setup call lsp#register_server({
+       \ 'name': 'intelephense',
+       \ 'cmd': {server_info->['node', expand('~/.nodebrew/node/v10.15.0/lib/node_modules/intelephense-server/lib/server.js'), '--stdio']},
+       \ 'whitelist': ['php'],
+       \ })
+'''
