@@ -142,6 +142,7 @@ hook_add = '''
 repo = 'andymass/vim-matchup'
 hook_add = '''
   let g:loaded_matchit = 1
+  hi MatchParen ctermbg=lightcyan ctermfg=black
 '''
 
 
