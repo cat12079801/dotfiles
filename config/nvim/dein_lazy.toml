@@ -66,3 +66,8 @@ hook_add = '''
 [[plugins]]
 repo = 'Townk/vim-autoclose'
 on_i = 1
+
+
+[[plugins]]
+repo = "posva/vim-vue"
+on_ft = ["vue"]

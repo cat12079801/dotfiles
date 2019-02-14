@@ -36,6 +36,9 @@ if has("autocmd")
   autocmd FileType javascript  setlocal sw=4 sts=4 ts=4 et
   autocmd FileType go          setlocal sw=4 sts=4 ts=4 noet
   autocmd FileType typescript  setlocal sw=4 sts=4 ts=4 et
+  autocmd FileType php         setlocal sw=4 sts=4 ts=4 et
+
+  autocmd FileType vue syntax sync fromstart
 endif
 "change tabstop by extension ------------------------------
 
