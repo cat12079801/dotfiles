@@ -19,6 +19,7 @@ nmap ; :Buffers<CR>
 nmap f :Files<CR>
 nmap <C-p> <C-^>
 nmap <Leader>b %
+vmap <Leader>b %
 "prefix --------------------------------
 
 
