@@ -31,7 +31,11 @@ hook_add = '''
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
   let g:deoplete#enable_at_startup = 1
+  call deoplete#custom#option('smart_case', v:true)
+  imap <expr><CR> deoplete#close_popup()
 '''
+  #imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+  #imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 
 [[plugins]]
