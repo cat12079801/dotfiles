@@ -1,5 +1,4 @@
 "basic ---------------------------------
-set number
 set cursorline
 set tabstop=2
 set expandtab
@@ -13,17 +12,20 @@ set signcolumn=yes
 set pumblend=15
 set termguicolors
 set clipboard=unnamed
+set foldmethod=indent
 let mapleader = ','
 "basic ---------------------------------
 
 
-"prefix --------------------------------
+"key maps --------------------------------
 nmap ; :Buffers<CR>
 nmap f :Files<CR>
 nmap <C-p> <C-^>
 nmap <Leader>b %
 vmap <Leader>b %
-"prefix --------------------------------
+nmap * *N
+nmap # #N
+"key maps --------------------------------
 
 
 "change tabstop by extension ------------------------------
