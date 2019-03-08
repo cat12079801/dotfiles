@@ -8,6 +8,8 @@
   push = push -u
   mushi = update-index --assume-unchanged
   mushishinai = update-index --no-assume-unchanged
+  showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
+  rmmerged = !"git branch --merged | grep -v '*' | xargs git branch -d"
 [commit]
   template = ~/dotfiles/commit_template
 [merge]
