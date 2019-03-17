@@ -33,6 +33,7 @@ ln -sf ~/dotfiles/gitconfig ~/.gitconfig
 mkdir -p ~/.config
 ln -sf ~/dotfiles/config/nvim ~/.config/nvim
 ln -sf ~/dotfiles/config/sxiv ~/.config/sxiv
+ln -sf ~/dotfiles/tigrc ~/.tigrc
 
 echo ""
 echo "exec following command!!!"
