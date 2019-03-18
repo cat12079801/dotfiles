@@ -1,5 +1,13 @@
 [color]
   ui = true
+[color "diff"]
+  old = 166
+  new = 035
+[color "diff-highlight"]
+  oldNormal = 166
+  oldHighlight = 214 052
+  newNormal = 035
+  newHighlight = 047 022
 [alias]
   alias = !cat ~/dotfiles/bashrc | grep git_alias | grep -v '{'
   st = status
@@ -22,4 +30,12 @@
 [include]
   path = ~/.gitconfig.local
 [push]
-	default = simple
+  default = simple
+[diff]
+  compactionHeuristic = true
+[pager]
+  diff = diff-highlight | less
+  show = diff-highlight | less
+  log = diff-highlight | less
+[interactive]
+  diffFilter = diff-highlight

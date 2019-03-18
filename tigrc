@@ -4,6 +4,12 @@ set main-view = id date author commit-title:graph=yes,refs=yes
 # 水平分割したウィンドウの下画面サイズを % で指定（行数指定も可）
 set split-view-height = 80%
 
+# 差分表示に diff-highlight を使う (要 tig 2.2.1 以降. diff-highlight が $PATH にあること)
+set diff-highlight = true
+
+# utf-8 文字で画面描画する (~でトグル)
+set line-graphics = utf-8
+
 
 # Color scheme
 #
@@ -47,3 +53,4 @@ color diff-index        014             default
 color diff-add          040             default
 color diff-del          161             default
 color diff-chunk        190             default
+color diff-header       232             246
