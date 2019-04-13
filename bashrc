@@ -95,9 +95,9 @@ function share_history {
 }
 PROMPT_COMMAND='share_history'
 export HISTCONTROL=ignoredups
-export SAVESIZE=100000
+export SAVESIZE=10000000
 shopt -u histappend
-export HISTSIZE=10000
+export HISTSIZE=1000000
 
 
 ###### PROMPT
