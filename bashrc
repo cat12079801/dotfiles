@@ -4,6 +4,7 @@ export EDITOR=vim
 export LANG=en_US.UTF-8
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export FZF_DEFAULT_OPTS='--preview "head -100 {}"'
+export IGNOREEOF=3
 if type ag >/dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='ag -g ""'
 else
