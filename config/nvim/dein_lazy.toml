@@ -76,3 +76,18 @@ on_ft = ["vue"]
 [[plugins]]
 repo = 'thinca/vim-showtime'
 on_cmd = ['ShowtimeStart']
+
+
+[[plugins]]
+repo = 'flowtype/vim-flow'
+on_ft = ['javascript']
+
+
+[[plugins]]
+repo = 'MaxMEllon/vim-jsx-pretty'
+on_ft = ['javascript']
+hook_add = '''
+  autocmd ColorScheme * highlight jsxComponentName ctermfg=030 guifg=#25baba
+  autocmd ColorScheme * highlight jsxPunct         ctermfg=031 guifg=#0087af
+  autocmd ColorScheme * highlight jsxCloseString   ctermfg=031 guifg=#0087af
+'''
