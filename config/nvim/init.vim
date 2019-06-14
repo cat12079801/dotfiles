@@ -13,6 +13,7 @@ set pumblend=15
 set termguicolors
 set clipboard=unnamed
 set foldmethod=indent
+set ignorecase
 let mapleader = ','
 "basic ---------------------------------
 
