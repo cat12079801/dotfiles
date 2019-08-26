@@ -14,6 +14,7 @@ set termguicolors
 set clipboard=unnamed
 set foldmethod=indent
 set ignorecase
+set scrolloff=10
 let mapleader = ','
 "basic ---------------------------------
 
