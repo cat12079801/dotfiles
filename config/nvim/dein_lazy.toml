@@ -85,7 +85,7 @@ on_ft = ['javascript']
 
 [[plugins]]
 repo = 'MaxMEllon/vim-jsx-pretty'
-on_ft = ['javascript']
+on_ft = ['javascript', 'typescript']
 hook_add = '''
   autocmd ColorScheme * highlight jsxComponentName ctermfg=030 guifg=#25baba
   autocmd ColorScheme * highlight jsxPunct         ctermfg=031 guifg=#0087af
