@@ -10,6 +10,11 @@ if type ag >/dev/null 2>&1; then
 else
   echo '`ag` is not installed!' >&2
 fi
+if type thefuck >/dev/null 2>&1; then
+  eval $(thefuck --alias)
+else
+  echo '`thefuck` is not installed!' >&2
+fi
 
 # Escの後受付時間を短く
 KEYTIMEOUT=1
