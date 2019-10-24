@@ -1,4 +1,4 @@
-export PATH="./bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+export PATH="/usr/local/bin:./bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin"
 
 # rbenv
 if [ -d $HOME/.rbenv ]; then
