@@ -3,7 +3,11 @@ export LESSCHARSET=utf-8
 export EDITOR=vim
 export LANG=en_US.UTF-8
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-export FZF_DEFAULT_OPTS='--preview "head -100 {}"'
+export FZF_DEFAULT_OPTS='
+  --preview "head -100 {}"
+  --color fg:242,bg:233,hl:65,fg+:15,bg+:234,hl+:108
+  --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+'
 export IGNOREEOF=999
 if type ag >/dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='ag -g ""'
