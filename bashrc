@@ -19,6 +19,11 @@ if type thefuck >/dev/null 2>&1; then
 else
   echo '`thefuck` is not installed!' >&2
 fi
+git secrets >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+  echo "\033[1mgit secrets\033[0m is not installed"
+  echo 'ref: https://github.com/awslabs/git-secrets'
+fi
 
 # Escの後受付時間を短く
 KEYTIMEOUT=1

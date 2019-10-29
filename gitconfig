@@ -39,3 +39,5 @@
   log = diff-highlight | less
 [interactive]
   diffFilter = diff-highlight
+[init]
+  templatedir = ~/.git-templates/git-secrets
