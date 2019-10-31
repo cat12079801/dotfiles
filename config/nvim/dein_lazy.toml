@@ -91,3 +91,8 @@ hook_add = '''
   autocmd ColorScheme * highlight jsxPunct         ctermfg=031 guifg=#0087af
   autocmd ColorScheme * highlight jsxCloseString   ctermfg=031 guifg=#0087af
 '''
+
+
+[[plugins]]
+repo = 'yasuhiroki/circleci.vim'
+on_ft = ['yaml']
