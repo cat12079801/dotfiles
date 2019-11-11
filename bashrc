@@ -55,6 +55,15 @@ else
   echo '`lsd` is not installed!' >&2
 fi
 
+which asdf >/dev/null 2>&1;
+if [ $? -eq 0 ]; then
+  . /usr/local/opt/asdf/asdf.sh
+
+  . /usr/local/opt/asdf/etc/bash_completion.d/asdf.bash
+else
+  echo 'asdf is not installed!' >&2
+fi
+
 # ----------------------
 # Git Aliases
 # ----------------------
