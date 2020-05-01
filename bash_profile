@@ -1,4 +1,6 @@
 export PATH="/usr/local/bin:./bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin"
+export PATH="~/.asdf/shims/:$PATH"
+export PATH="/usr/local/opt/php@7.3/bin/:$PATH"
 
 # rbenv
 if [ -d $HOME/.rbenv ]; then

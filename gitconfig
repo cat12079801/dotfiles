@@ -18,6 +18,8 @@
   mushishinai = update-index --no-assume-unchanged
   showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
   rmmerged = !"git branch --merged | grep -v '*' | xargs git branch -d"
+  # maketicket = !"N=$1; git branch ticket/$N; git branch hoge/$N"
+  maketicket = !"N=$1; git branch ticket/$N; git switch ticket/$N; git push upstream HEAD; git push -u origin HEAD"
 [commit]
   template = ~/dotfiles/commit_template
 [merge]

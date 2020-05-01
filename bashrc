@@ -4,10 +4,10 @@ export EDITOR=vim
 export LANG=en_US.UTF-8
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export FZF_DEFAULT_OPTS='
-  --preview "head -100 {}"
   --color fg:242,bg:233,hl:65,fg+:15,bg+:234,hl+:108
   --color info:108,prompt:109,spinner:108,pointer:168,marker:168
 '
+  # --preview "head -100 {}"
 export IGNOREEOF=999
 if type ag >/dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='ag -g ""'
@@ -43,6 +43,7 @@ alias clearl="clear; ls"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias v="anyversion"
 alias histry-all="history -E 1"
 if [ "$(uname)" = 'Darwin' ]; then
   alias clip="pbcopy" # Mac
@@ -68,6 +69,8 @@ fi
 # Git Aliases
 # ----------------------
 [ -f $HOME/dotfiles/git-completion.bash ] && source $HOME/dotfiles/git-completion.bash
+
+alias gsf="git branch | fzf | xargs git switch"
 
 git_alias() {
   __git_complete $1 "_git_$2"
