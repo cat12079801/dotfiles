@@ -3,6 +3,7 @@
 [color "diff"]
   old = 166
   new = 035
+  whitespace = "red reverse"
 [color "diff-highlight"]
   oldNormal = 166
   oldHighlight = 214 052
