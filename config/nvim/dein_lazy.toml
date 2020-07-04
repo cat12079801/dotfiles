@@ -47,7 +47,7 @@ on_ft = 'python'
 
 [[plugins]]
 repo = 'lilydjwg/colorizer'
-on_ft = ['css', 'html', 'sass', 'scss', 'vim', 'less', 'md']
+on_ft = ['css', 'html', 'sass', 'scss', 'vim', 'less', 'md', 'tmux']
 
 
 [[plugins]]
