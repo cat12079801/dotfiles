@@ -46,4 +46,4 @@
 [interactive]
   diffFilter = diff-highlight
 [init]
-  templatedir = ~/.git-templates/git-secrets
+  templatedir = ~/.git-templates
