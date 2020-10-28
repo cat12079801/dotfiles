@@ -4,11 +4,6 @@ mkdir -p ~/.vim/bundle
 mkdir -p ~/.vim/vimdots
 mkdir -p ~/.vim/backup
 
-if [ ! -e ~/.pyenv/ ]; then
-  git clone https://github.com/yyuu/pyenv.git ~/.pyenv
-  git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
-fi
-
 if [ ! -e ~/.cache/dein ]; then
   mkdir ~/.vim/dein.vim/
   curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > dein.vim-installer.sh
@@ -34,9 +29,12 @@ mkdir -p ~/.config
 ln -sf ~/dotfiles/config/nvim ~/.config/nvim
 ln -sf ~/dotfiles/config/sxiv ~/.config/sxiv
 ln -sf ~/dotfiles/git-templates ~/.git-templates
+ln -sf ~/dotfiles/config/fish/config.fish  ~/.config/fish/config.fish
+ln -sf ~/dotfiles/config/fish/functions/fish_user_key_bindings.fish ~/.config/fish/functions/fish_user_key_bindings.fish
 
 echo ""
 echo "exec following command!!!"
 echo "###########################"
+echo "asdf を使って"
 echo "source ~/.bash_profile; sh pyenv-install.sh"
 echo "###########################"
