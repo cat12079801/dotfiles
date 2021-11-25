@@ -7,7 +7,7 @@ symbol = " "
 [conda]
 symbol = " "
 
-[docker]
+[docker_context]
 symbol = " "
 
 [elixir]
@@ -18,9 +18,6 @@ symbol = " "
 
 [golang]
 symbol = " "
-
-[haskell]
-symbol = " "
 
 [java]
 symbol = " "

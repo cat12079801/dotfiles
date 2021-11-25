@@ -1,4 +1,4 @@
-set PATH /usr/local/bin /bin /sbin /usr/bin /usr/sbin /usr/local/sbin ~/.asdf/shims ~/workspace/bin $PATH
+set PATH /usr/local/bin /bin /sbin /usr/bin /usr/sbin /usr/local/sbin ~/.asdf/shims ~/workspace/bin /home/linuxbrew/.linuxbrew/bin/ ~/.local/bin/ $PATH
 
 set fish_color_normal normal
 set fish_color_command a1b56c
