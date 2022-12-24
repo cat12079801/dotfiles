@@ -13,17 +13,14 @@
   newNormal = 035
   newHighlight = 047 022
 [alias]
-  alias = !cat ~/dotfiles/bashrc | grep git_alias | grep -v '{'
   st = status
   tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
   br = branch -vv
   push = push -u
   mushi = update-index --assume-unchanged
   mushishinai = update-index --no-assume-unchanged
-  showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
+  # 今いるブランチにマージされている他のローカルブランチを削除する
   rmmerged = !"git branch --merged | grep -v '*' | xargs git branch -d"
-  # maketicket = !"N=$1; git branch ticket/$N; git branch hoge/$N"
-  maketicket = !"N=$1; git branch ticket/$N; git switch ticket/$N; git push upstream HEAD; git push -u origin HEAD"
 [commit]
   template = ~/dotfiles/commit_template
 [merge]
