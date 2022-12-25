@@ -4,3 +4,5 @@ function fish_user_key_bindings
   bind -M insert \cd delete-char
   bind -M visual \cd delete-char
 end
+
+fzf_key_bindings
