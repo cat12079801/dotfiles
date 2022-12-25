@@ -50,3 +50,18 @@ if has("autocmd")
   autocmd FileType vue syntax sync fromstart
 endif
 "change tabstop by extension ------------------------------
+
+"vim-plug ----------------------------------
+call plug#begin()
+
+" vimのステータスライン
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" カラースキーマ
+Plug 'EdenEast/nightfox.nvim'
+
+call plug#end()
+"vim-plug ----------------------------------
+
+colorscheme nightfox
