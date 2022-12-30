@@ -12,7 +12,7 @@ set signcolumn=yes
 set pumblend=15
 set termguicolors
 set clipboard=unnamed
-set foldmethod=indent
+set foldmethod=manual
 set ignorecase
 set scrolloff=10
 let mapleader = ','
@@ -20,13 +20,7 @@ let mapleader = ','
 
 
 "key maps --------------------------------
-nmap ; :Buffers<CR>
-nmap f :Files<CR>
-nmap <C-p> <C-^>
-nmap <Leader>b %
-vmap <Leader>b %
-nmap * *N
-nmap # #N
+
 "key maps --------------------------------
 
 
