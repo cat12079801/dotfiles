@@ -67,6 +67,12 @@ Plug 'airblade/vim-gitgutter'
 " カラーコードをその色で表示する
 Plug 'norcalli/nvim-colorizer.lua'
 
+" LSP
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
 call plug#end()
 "vim-plug ----------------------------------
 
