@@ -35,7 +35,8 @@ set fish_pager_color_progress brwhite --background=cyan
 
 starship init fish | source
 
-source (brew --prefix asdf)/asdf.fish
+# for Fish & Homebrew
+source /usr/local/opt/asdf/libexec/asdf.fish
 
 alias p8="ping 8.8.8.8"
 alias vim="nvim"
@@ -46,14 +47,8 @@ alias clearl="clear; ls"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias v="anyversion"
-alias histry-all="history -E 1"
-if [ "(uname)" = 'Darwin' ];
-  alias clip="pbcopy" # Mac
-else if [ "(uname)" = 'Linux' ];
-  alias clip="xsel -bi" # Ubuntu
-end
 if [ "(type lsd >/dev/null 2>&1)" ];
+  # lsdがインストールされていればエイリアスに登録
   alias ls="lsd"
 else
   echo '`lsd` is not installed!' >&2
