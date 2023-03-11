@@ -1,0 +1,11 @@
+font:
+  normal:
+    family: 'Cica'
+    style: Regular
+
+  bold:
+    family: 'Cica'
+    style: Bold
+
+  size: 22.0
+

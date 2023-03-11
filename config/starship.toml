@@ -12,3 +12,13 @@ $character\
 
 [cmd_duration]
 min_time = 5000 # ms
+
+# starship + alacritty で使うと`❯`の色が変わるので指定する
+[character]
+format = '$symbol '
+success_symbol = '[❯](bold #00d000)'
+error_symbol = '[❯](bold red)'
+vimcmd_symbol = '[❮](bold #00d000)'
+vimcmd_replace_one_symbol = '[❮](bold purple)'
+vimcmd_replace_symbol = '[❮](bold purple)'
+vimcmd_visual_symbol = '[❮](bold yellow)'
