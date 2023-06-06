@@ -4,8 +4,6 @@ set PATH /usr/local/bin /bin /sbin /usr/bin /usr/sbin /usr/local/sbin $PATH
 set PATH ~/.asdf/shims $PATH
 # cargo用
 set PATH ~/.cargo/bin $PATH
-# linuxbrew用。TODO: これは個別に切り分けたい
-set PATH /home/linuxbrew/.linuxbrew/bin/ $PATH
 
 set fish_color_normal normal
 set fish_color_command a1b56c
@@ -34,9 +32,6 @@ set fish_pager_color_prefix white --bold --underline
 set fish_pager_color_progress brwhite --background=cyan
 
 starship init fish | source
-
-# for Fish & Homebrew
-source /usr/local/opt/asdf/libexec/asdf.fish
 
 alias p8="ping 8.8.8.8"
 alias vim="nvim"
