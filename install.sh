@@ -30,7 +30,7 @@ ln -sf ~/dotfiles/alacritty.yml ~/.alacritty.yml
 # mkdir -p ~/.config
 # ln -sf ~/dotfiles/config/nvim ~/.config/nvim
 # ln -sf ~/dotfiles/config/sxiv ~/.config/sxiv
-# ln -sf ~/dotfiles/git-templates ~/.git-templates
+ln -sf ~/dotfiles/git-templates ~/.git-templates
 # ln -sf ~/dotfiles/config/fish/config.fish  ~/.config/fish/config.fish
 # ln -sf ~/dotfiles/config/fish/functions/fish_user_key_bindings.fish ~/.config/fish/functions/fish_user_key_bindings.fish
 # ln -sf ~/dotfiles/config/starship.toml ~/.config/starship.toml
