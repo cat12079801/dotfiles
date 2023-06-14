@@ -1,3 +1,6 @@
+# install `fisher` and
+# $ fisher install jethrokuan/fzf
+
 # 基本セット
 set PATH /usr/local/bin /bin /sbin /usr/bin /usr/sbin /usr/local/sbin $PATH
 # asdf用
