@@ -28,7 +28,7 @@
 [pull]
   ff = only
 [core]
-  pager = less -cm
+  pager = delta
   quotepath = false
 [include]
   path = ~/.gitconfig.local
@@ -36,11 +36,11 @@
   default = simple
 [diff]
   compactionHeuristic = true
-[pager]
-  diff = diff-highlight | less
-  show = diff-highlight | less
-  log = diff-highlight | less
 [interactive]
-  diffFilter = diff-highlight
+  diffFilter = delta --color-only
 [init]
   templatedir = ~/.git-templates
+[delta]
+  navigate = true
+  side-by-side = true
+  line-numbers = true
