@@ -5,6 +5,8 @@ set PATH ~/.asdf/shims $PATH
 # cargo用
 set PATH ~/.cargo/bin $PATH
 
+set PATH ~/.orbstack/bin $PATH
+
 set fish_color_normal normal
 set fish_color_command a1b56c
 set fish_color_quote f7ca88
@@ -32,6 +34,8 @@ set fish_pager_color_prefix white --bold --underline
 set fish_pager_color_progress brwhite --background=cyan
 
 starship init fish | source
+
+mise activate fish | source
 
 alias p8="ping 8.8.8.8"
 alias vim="nvim"

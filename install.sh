@@ -27,6 +27,7 @@ ln -sf ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/config ~/.config
 ln -sf ~/dotfiles/alacritty.yml ~/.alacritty.yml
+ln -sf ~/dotfiles/ideavimrc ~/.ideavimrc
 # mkdir -p ~/.config
 # ln -sf ~/dotfiles/config/nvim ~/.config/nvim
 # ln -sf ~/dotfiles/config/sxiv ~/.config/sxiv

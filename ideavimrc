@@ -1,0 +1,11 @@
+set surround
+set scrolloff=10
+set hlsearch
+set ignorecase
+set visualbell
+set noerrorbells
+nnoremap ,, :<C-u>action AceAction<CR>
+nnoremap gp :<C-u>action VcsShowPrevChangeMarker<CR>
+nnoremap gn :<C-u>action VcsShowNextChangeMarker<CR>
+nnoremap g; :<C-u>action JumpToLastChange<CR>
+nnoremap g, :<C-u>action JumpToNextChange<CR>
