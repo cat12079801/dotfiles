@@ -34,9 +34,13 @@ dotfiles.default_mode = "symlink"
 
 [dotfiles]
 "~/.gitconfig" = "gitconfig"
-"~/.bashrc"    = "bashrc"
 "~/.tmux.conf" = "tmux.conf"
 "~/.ideavimrc" = "ideavimrc"
+
+# 対話シェルは fish のみ。zsh を置くのはエージェントのツール実行が
+# zsh で走るためで、そこでも safe-chain を効かせる目的である。
+# bash は対話利用も他ツールからの利用も無いため管理しない。
+"~/.zshrc" = "zshrc"
 
 "~/.config/git"           = "config/git"
 "~/.config/nvim"          = "config/nvim"
