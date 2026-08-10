@@ -42,6 +42,11 @@ dotfiles.default_mode = "symlink"
 # bash は対話利用も他ツールからの利用も無いため管理しない。
 "~/.zshrc" = "zshrc"
 
+# SSH 設定は断片のみを管理する。~/.ssh/config 本体は管理外に置く。
+# 業務・顧客のホスト名や踏み台の情報が公開リポジトリへ載る経路を作らないため、
+# および config を書き換えるツールがリポジトリを汚すのを避けるため。
+"~/.ssh/config.d/github.conf" = "ssh/github.conf"
+
 "~/.config/git"           = "config/git"
 "~/.config/nvim"          = "config/nvim"
 "~/.config/starship.toml" = "config/starship.toml"
@@ -57,6 +62,14 @@ dotfiles.default_mode = "symlink"
 [tasks.bootstrap]
 description = "safe-chain と fisher を導入し fish プラグインを同期する"
 run = '''
+# --- ssh --------------------------------------------------------------
+# ControlPath 用のソケット置き場。ssh は親ディレクトリを自動作成しない。
+# 認証済み接続を共有するソケットなので 700 に絞る。
+# [bootstrap.directories] を使わないのは、$HOME 配下であっても
+# システム領域の変更とみなされ sudo を要求されるためである。
+mkdir -p ~/.ssh/cm
+chmod 700 ~/.ssh/cm
+
 # --- safe-chain ---------------------------------------------------------
 # npm / npx / yarn 等をラップして検査を挟むツール。brew formula が無いため
 # 公式インストーラを使う。
