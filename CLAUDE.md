@@ -37,7 +37,7 @@ macOS (Apple Silicon) / fish + tmux + nvim を中心とした個人用 dotfiles�
     ├── fish/            → ~/.config/fish   （symlink-each）
     │   ├── config.fish
     │   ├── fish_plugins
-    │   └── functions/  fish_user_key_bindings.fish, ccusage.fish
+    │   └── functions/  fish_user_key_bindings.fish, ccusage.fish, gsf.fish
     ├── git/ignore       → ~/.config/git    グローバル gitignore
     ├── nvim/init.vim    → ~/.config/nvim   vim-plug 構成
     └── starship.toml    → ~/.config/starship.toml
@@ -82,23 +82,27 @@ fisher・fish 本体・各種 CLI（OrbStack 等）が `completions/` `conf.d/` 
 
 ## 既知の問題
 
-### P1. config.fish 内の不整合
+### P1. config.fish が存在しないディレクトリを PATH に積んでいる
 
-- `set PATH ~/.asdf/shims $PATH` — asdf 未インストールのため、存在しないディレクトリを PATH に積んでいる
-- `if [ "(type lsd >/dev/null 2>&1)" ]` — **コマンド置換が `$(...)` になっておらず常に真**になる壊れた条件式
-- alias が 32 個ある一方 abbr は 0 個。git 系の省略記法まで alias（＝function 生成）で書かれており、
-  履歴に実コマンドが残らず、`git` のサブコマンド補完も効かない
+`set PATH ~/.asdf/shims $PATH` — asdf は未インストールである。
+
+## 短縮記法の方針
+
+`config.fish` では以下の使い分けをする。
+
+- **alias**: コマンドそのものの差し替え（`vim`→`nvim`、`ls`→`lsd`、`grep --color`）。
+  入力を別名へ展開する abbr は置き換えの意図と合わない
+- **abbr**: 省略記法。入力時に実コマンドへ展開されるため履歴に実行内容が残り、
+  `git` のサブコマンド補完もそのまま効く
+- **関数**: パイプや条件分岐を含むもの（`gsf`）。`config/fish/functions/` に置く
+
+追加・削除の判断は履歴の利用実績に基づく。fish 履歴は
+`~/.local/share/fish/fish_history` にあり、`- cmd: ` の**7 文字**を除いた残りが
+コマンド本体である（8 文字と誤ると先頭 1 文字が欠けて集計を誤る）。
 
 ## 今後の方針
 
-### 方針 A: alias を abbr へ移行する
-
-- **abbr へ**: git 系 26 個（`ga` `gcm` `gd` `gl` `gs` 等）。展開されるため履歴に実コマンドが残り、補完も効く
-- **alias のまま**: `ls`→`lsd`、`vim`→`nvim`、`grep --color`。省略記法ではなくコマンド自体の置換であるため
-- **関数化**: `gsf`（`git branch | fzf | xargs git switch`）
-- 併せて P1 の壊れた `lsd` 判定を修正する。`command -q lsd` が正しい書き方である
-
-### 方針 B: gwq の導入
+### 方針 A: gwq の導入
 
 [d-kuro/gwq](https://github.com/d-kuro/gwq) は git worktree 管理 CLI。
 `~/CLAUDE.md` の worktree 規則 `~/workspace/worktrees/<repo-name>/<branch-name>` を
@@ -110,7 +114,7 @@ fisher・fish 本体・各種 CLI（OrbStack 等）が `completions/` `conf.d/` 
   `~/.config/fish/completions/` に置く。`[dotfiles]` で管理してはならない
 - 導入後は `gsf` 相当のワークフローが不要になる可能性がある
 
-### 方針 C: コンテナおよび CI での適用検証
+### 方針 B: コンテナおよび CI での適用検証
 
 クリーンな環境に本 dotfiles を適用できるかを継続的に確認する。以下は検証済みである。
 

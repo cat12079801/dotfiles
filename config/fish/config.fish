@@ -40,45 +40,33 @@ command -q starship; and starship init fish | source
 
 command -q mise; and mise activate fish | source
 
-alias p8="ping 8.8.8.8"
+# コマンドそのものの差し替え。省略記法ではないため alias（関数）で定義する。
+# abbr にすると入力が別名へ展開されてしまい、置き換えの意図と合わない。
 alias vim="nvim"
 alias grep="grep --color"
-alias clearl="clear; ls"
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-if [ "(type lsd >/dev/null 2>&1)" ];
-  # lsdがインストールされていればエイリアスに登録
-  alias ls="lsd"
-else
-  echo '`lsd` is not installed!' >&2
-end
+command -q lsd; and alias ls="lsd"
 
-alias ga="git add"
-alias gaa="git add ."
-alias gau="git add -u"
-alias gb="git br"
-alias gbd="git branch -d"
-alias gcm="git commit"
-alias gca="git commit --amend"
-alias gc="git checkout"
-alias gcb="git checkout -b"
-alias gd="git diff"
-alias gdb="git diff -b"
-alias gl="git log --date=iso --decorate"
-alias glp="git log --date=iso --decorate --patch"
-alias glg="git log --date=iso --graph --decorate --oneline --all"
-alias glc="git log --pretty=\'%H %s\'"
-alias glt="git tr"
-alias gs="git status -bs"
-alias gss="git status"
-alias gf="git fetch"
-alias gp="git pull"
-alias gst="git stash"
-alias gstl="git stash list"
-alias gstp="git stash pop"
-alias gstd="git stash drop"
-alias gsf="git branch | fzf | xargs git switch"
+# 以下は省略記法なので abbr で定義する。入力時に実コマンドへ展開されるため、
+# 履歴に実行内容が残り、git のサブコマンド補完もそのまま効く。
+abbr -a .. 'cd ..'
+abbr -a ... 'cd ../..'
+abbr -a .... 'cd ../../..'
+abbr -a clearl 'clear; ls'
+
+abbr -a ga 'git add'
+abbr -a gaa 'git add .'
+abbr -a gau 'git add -u'
+abbr -a gc 'git checkout'
+abbr -a gca 'git commit --amend'
+abbr -a gcm 'git commit'
+abbr -a gd 'git diff'
+abbr -a gf 'git fetch'
+abbr -a gl 'git log --date=iso --decorate'
+abbr -a glp 'git log --date=iso --decorate --patch'
+abbr -a glt 'git tr'
+abbr -a gp 'git pull'
+abbr -a gs 'git status -bs'
+abbr -a gss 'git status'
 
 # Safe-chain。npm / npx / yarn 等をラップして検査を挟む。
 # 導入は mise.toml の [tasks.bootstrap] が担う。
