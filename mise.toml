@@ -1,0 +1,63 @@
+# dotfiles のデプロイ定義。
+# 適用: cd ~/dotfiles && mise bootstrap dotfiles apply
+# 確認: mise bootstrap dotfiles status / --dry-run
+#
+# 初回のみ `mise trust` が必要。
+
+[settings]
+dotfiles.root = "~/dotfiles"
+dotfiles.default_mode = "symlink"
+
+# 本 dotfiles が動作するために必要なパッケージ。
+# いずれも設定ファイルから直接参照されており、欠けると起動時エラーになる。
+#   fish/starship … config.fish が起動時に呼ぶ
+#   tmux          … tmux.conf
+#   neovim        … config/nvim、alias vim=nvim
+#   git-delta     … gitconfig の core.pager
+#   lsd           … config.fish の alias ls
+#   fzf           … fisher の jethrokuan/fzf、alias gsf
+#   gh            … gitconfig の credential helper
+[bootstrap.packages]
+"brew:fish"      = "latest"
+"brew:starship"  = "latest"
+"brew:tmux"      = "latest"
+"brew:neovim"    = "latest"
+"brew:git-delta" = "latest"
+"brew:lsd"       = "latest"
+"brew:fzf"       = "latest"
+"brew:gh"        = "latest"
+
+# tmux のプラグインマネージャ。tmux.conf 末尾の `run '~/.tmux/plugins/tpm/tpm'`
+# が参照するため、これが無いと tmux のプラグインが一切読み込まれない。
+[bootstrap.repos]
+"~/.tmux/plugins/tpm" = { url = "https://github.com/tmux-plugins/tpm" }
+
+[dotfiles]
+"~/.gitconfig" = "gitconfig"
+"~/.bashrc"    = "bashrc"
+"~/.tmux.conf" = "tmux.conf"
+"~/.ideavimrc" = "ideavimrc"
+
+"~/.config/git"           = "config/git"
+"~/.config/nvim"          = "config/nvim"
+"~/.config/starship.toml" = "config/starship.toml"
+
+# fish はディレクトリごとリンクしない。fisher や fish 自身が
+# completions/ conf.d/ fish_variables を書き込むため、ディレクトリ
+# リンクにするとそれらがリポジトリへ流入する。symlink-each なら
+# 実ディレクトリを作ったうえで管理下のファイルのみをリンクするため、
+# 生成物は ~/.config/fish 側に留まる。
+"~/.config/fish" = { source = "config/fish", mode = "symlink-each" }
+
+# `mise bootstrap` の最後に実行される。fish_plugins に列挙した
+# プラグインを導入するため、その前提となる fisher を用意する。
+[tasks.bootstrap]
+description = "fisher を導入し fish_plugins のプラグインを同期する"
+run = '''
+if not functions -q fisher
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+  fisher install jorgebucaran/fisher
+end
+fisher update
+'''
+shell = "fish -c"

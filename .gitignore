@@ -1,3 +1,12 @@
 config/nvim/*
 !config/nvim/init.vim
 tmux/*.log
+
+# fish の生成物。symlink-each により通常は ~/.config/fish 側へ書かれるため
+# ここに現れることはないが、取りこぼしの保険として除外する
+config/fish/fish_variables
+config/fish/completions/
+config/fish/functions/__fzf*.fish
+config/fish/functions/fisher.fish
+config/fish/conf.d/fzf.fish
+config/fish/conf.d/fish_frozen_*.fish
