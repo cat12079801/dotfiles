@@ -28,7 +28,7 @@ macOS (Apple Silicon) / fish + tmux + nvim を中心とした個人用 dotfiles�
 │
 ├── gitconfig            → ~/.gitconfig
 ├── commit_template              gitconfig の commit.template から参照
-├── bashrc               → ~/.bashrc
+├── zshrc                → ~/.zshrc  エージェントのツール実行が読む
 ├── tmux.conf            → ~/.tmux.conf
 ├── tmux/ip.sh                   tmux status-left から呼ばれる
 ├── ideavimrc            → ~/.ideavimrc

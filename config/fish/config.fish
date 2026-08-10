@@ -84,8 +84,8 @@ alias gsf="git branch | fzf | xargs git switch"
 
 # Safe-chain。npm / npx / yarn 等をラップして検査を挟む。
 # 導入は mise.toml の [tasks.bootstrap] が担う。
-# この行は safe-chain setup が生成したものだが、setup を再実行すると
-# 本ファイルを書き換えてしまうため、以降は本ファイル側で管理する。
+# `safe-chain setup` を実行してはならない。本ファイルを書き換えるため、
+# リポジトリへの symlink である本ファイルが汚れる。配線はここで管理する。
 test -f ~/.safe-chain/scripts/init-fish.fish
   and source ~/.safe-chain/scripts/init-fish.fish
 

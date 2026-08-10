@@ -70,12 +70,12 @@ run = '''
 # 版を固定しても検知能力は落ちない。更新は本ファイルの版とハッシュを
 # 書き換えるコミットとして行う。
 #
-# インストーラは最後に `safe-chain setup` を走らせ、$HOME 配下のシェル設定を
-# 書き換える。config.fish はリポジトリへの symlink であるため、これを許すと
-# リポジトリが汚れる（既存行を末尾へ移動する挙動を確認済み。上流にも
-# .zshrc を上書きする不具合報告がある）。よって使い捨ての HOME を与えて
+# インストーラは最後に `safe-chain setup` を走らせる。setup は $HOME 配下の
+# シェル設定を書き換え、既存の読み込み行を末尾へ移動する（上流にも .zshrc を
+# 上書きする不具合報告がある）。config.fish と zshrc はリポジトリへの symlink
+# であるため、これを許すとリポジトリが汚れる。よって使い捨ての HOME を与えて
 # setup の書き込みを隔離し、バイナリのみを --install-dir に配置する。
-# シェルへの配線は config.fish が管理する。
+# シェルへの配線は config.fish と zshrc が管理する。
 set -l sc_version 1.5.15
 set -l sc_sha256 de0565e3d6346407a604e84e639e95fea8758748063da2216bbfdca5feda5dd2
 
