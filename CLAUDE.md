@@ -3,12 +3,21 @@
 macOS (Apple Silicon) / fish + tmux + nvim を中心とした個人用 dotfiles。
 本ドキュメントは現状の構造・既知の問題・整理方針を記録したものである。
 
+## このドキュメントの記載方針
+
+**現在の状態と、今後の判断に資する情報のみを記す。**
+
+- 過去の経緯・移行履歴（「◯◯ から移行済み」「以前は △△ を使っていた」等）は書かない
+- 例外は、その経緯を知らないと現時点の判断を誤る場合に限る。
+  その場合も「過去にこうだった」ではなく「今こうなっているので、こう扱う」の形で書く
+- 解消済みの問題は記述ごと削除する。履歴は git log に残るため二重に持たない
+
 ## 前提環境
 
 - OS: macOS (darwin, arm64)
 - ログインシェル: fish 4.6.0
 - パッケージ管理: Homebrew (`/opt/homebrew`)
-- ランタイム管理: mise（`asdf` および `pyenv` からは移行済み）
+- ランタイム管理: mise
 - リポジトリ配置: `~/dotfiles`
 
 ## 現在の構造
@@ -16,7 +25,7 @@ macOS (Apple Silicon) / fish + tmux + nvim を中心とした個人用 dotfiles�
 ```
 ~/dotfiles/
 ├── install.sh                   デプロイスクリプト（ln -sf の羅列）
-├── pyenv-install.sh             Python 環境構築（旧）
+├── pyenv-install.sh             未使用（P5 参照）
 ├── README.md                    1 行のみ
 ├── .gitignore
 │
@@ -53,7 +62,7 @@ macOS (Apple Silicon) / fish + tmux + nvim を中心とした個人用 dotfiles�
 
 - `vimrc` / `bash_profile` をリンクしているが、いずれもリポジトリに存在しない
   → `~/.vimrc` と `~/.bash_profile` は**リンク切れ**状態
-- スクリプトの 2/3 がコメントアウトされた死骸である
+- 全体の 2/3 がコメントアウトされており、有効な処理を読み取りづらい
 
 ### P3. `~/.config` へのリンク事故
 
@@ -66,7 +75,8 @@ macOS (Apple Silicon) / fish + tmux + nvim を中心とした個人用 dotfiles�
 ~/.config/git    -> ~/dotfiles/config/git
 ```
 
-実際の配線は後から手作業で貼り直された個別リンクであり、install.sh の記述とは一致しない。
+現在の配線は個別リンクで成立しており、install.sh の記述とは一致しない。
+install.sh を実環境の正とみなしてはならない。
 
 ### P4. fish の生成物がリポジトリに流入している
 
@@ -82,15 +92,15 @@ macOS (Apple Silicon) / fish + tmux + nvim を中心とした個人用 dotfiles�
 
 | 対象 | 状態 |
 |---|---|
-| `alacritty.yml`, `config/alacritty/` | alacritty 未インストール。yml 形式は 0.13 以降廃止済みで、`~/.alacritty.yml` も旧ロケーション |
+| `alacritty.yml`, `config/alacritty/` | alacritty 未インストール。再導入する場合も yml 形式は 0.13 以降サポートされず、`~/.config/alacritty/alacritty.toml` に書き直しが必要 |
 | `config/sxiv/` | sxiv 未インストール（Linux 用画像ビューア） |
-| `pyenv-install.sh` | pyenv 未インストール。neovim2/3 virtualenv 前提で完全に陳腐化 |
+| `pyenv-install.sh` | pyenv 未インストール。内容も neovim2/3 の virtualenv 作成のみで、現在の構成では使い道がない |
 | `git-templates/` | 中身が空（`.gitkeep` のみ） |
-| `.gitignore` の dein 関連除外 | dein → vim-plug に移行済みで、参照先ファイルはいずれも不在 |
+| `.gitignore` の dein 関連除外 | 除外対象の `dein.toml` `dein_lazy.toml` `snippets/` はいずれも存在しない。nvim は vim-plug 構成 |
 
 ### P6. config.fish 内の不整合
 
-- `set PATH ~/.asdf/shims $PATH` — asdf 未インストール（mise へ移行済み）
+- `set PATH ~/.asdf/shims $PATH` — asdf 未インストールのため、存在しないディレクトリを PATH に積んでいる
 - `if [ "(type lsd >/dev/null 2>&1)" ]` — **コマンド置換が `$(...)` になっておらず常に真**になる壊れた条件式
 - alias が 32 個ある一方 abbr は 0 個。git 系の省略記法まで alias（＝function 生成）で書かれており、
   履歴に実コマンドが残らず、`git` のサブコマンド補完も効かない
