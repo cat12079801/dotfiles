@@ -30,7 +30,7 @@
 [core]
   pager = delta
   quotepath = false
-	editor = vim
+  editor = vim
 [include]
   path = ~/.gitconfig.local
 [push]
@@ -39,17 +39,15 @@
   compactionHeuristic = true
 [interactive]
   diffFilter = delta --color-only
-[init]
-  templatedir = ~/.git-templates
 [delta]
   navigate = true
   side-by-side = true
   line-numbers = true
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
 [credential "https://github.com"]
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+  helper =
+  helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+  helper =
+  helper = !/opt/homebrew/bin/gh auth git-credential

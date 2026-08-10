@@ -1,6 +1,3 @@
 config/nvim/*
-!config/nvim/dein.toml
-!config/nvim/dein_lazy.toml
 !config/nvim/init.vim
-!config/nvim/snippets/
 tmux/*.log
