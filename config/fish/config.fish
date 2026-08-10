@@ -42,8 +42,6 @@ command -q mise; and mise activate fish | source
 
 alias p8="ping 8.8.8.8"
 alias vim="nvim"
-# alias tmux="tmux -2"
-# alias tmuxa="tmux new-session -A -s"
 alias grep="grep --color"
 alias clearl="clear; ls"
 alias ..="cd .."
