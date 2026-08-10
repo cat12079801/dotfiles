@@ -1,7 +1,5 @@
 # 基本セット
 set PATH /usr/local/bin /bin /sbin /usr/bin /usr/sbin /usr/local/sbin $PATH
-# asdf用
-set PATH ~/.asdf/shims $PATH
 # cargo用
 set PATH ~/.cargo/bin $PATH
 

@@ -80,12 +80,6 @@ fisher・fish 本体・各種 CLI（OrbStack 等）が `completions/` `conf.d/` 
 `[tasks.bootstrap]` は公式インストーラを使うが、インストーラ自身が末尾で setup を
 走らせるため、使い捨ての `HOME` を与えて書き込みを隔離している。
 
-## 既知の問題
-
-### P1. config.fish が存在しないディレクトリを PATH に積んでいる
-
-`set PATH ~/.asdf/shims $PATH` — asdf は未インストールである。
-
 ## 短縮記法の方針
 
 `config.fish` では以下の使い分けをする。
