@@ -55,18 +55,55 @@ description = "safe-chain と fisher を導入し fish プラグインを同期�
 run = '''
 # --- safe-chain ---------------------------------------------------------
 # npm / npx / yarn 等をラップして検査を挟むツール。brew formula が無いため
-# 公式インストーラを使う。バイナリのチェックサム検証はインストーラが行う。
+# 公式インストーラを使う。
 #
-# インストーラは最後に `safe-chain setup` を走らせ、$HOME 配下のシェル設定へ
-# 読み込み行を追記する。config.fish はリポジトリへの symlink であるため、
-# これを許すとリポジトリが書き換えられる（既存行を末尾へ移動する挙動を確認済み）。
-# よって使い捨ての HOME を与えて setup の書き込みを隔離し、バイナリのみを
-# --install-dir に配置する。シェルへの配線は config.fish が管理する。
-if not test -x ~/.safe-chain/bin/safe-chain
-  set -l throwaway (mktemp -d)
-  curl -fsSL https://github.com/AikidoSec/safe-chain/releases/latest/download/install-safe-chain.sh \
-    | env HOME=$throwaway sh -s -- --install-dir $HOME/.safe-chain
-  rm -rf $throwaway
+# バージョンは固定する。latest を使うと以下の問題がある。
+#   - インストーラはバイナリの SHA256 を検証するが、期待値はスクリプト自身に
+#     埋め込まれているため、スクリプトが改竄されれば検証は無力になる。
+#     スクリプトのハッシュを外から照合して初めて意味のある検証になる
+#   - 何が入ったかが git 履歴に残らず、不具合時に戻せない
+# 脅威情報は実行時に malware-list.aikido.dev から取得されるため、
+# 版を固定しても検知能力は落ちない。更新は本ファイルの版とハッシュを
+# 書き換えるコミットとして行う。
+#
+# インストーラは最後に `safe-chain setup` を走らせ、$HOME 配下のシェル設定を
+# 書き換える。config.fish はリポジトリへの symlink であるため、これを許すと
+# リポジトリが汚れる（既存行を末尾へ移動する挙動を確認済み。上流にも
+# .zshrc を上書きする不具合報告がある）。よって使い捨ての HOME を与えて
+# setup の書き込みを隔離し、バイナリのみを --install-dir に配置する。
+# シェルへの配線は config.fish が管理する。
+set -l sc_version 1.5.15
+set -l sc_sha256 de0565e3d6346407a604e84e639e95fea8758748063da2216bbfdca5feda5dd2
+
+set -l sc_current
+if test -x ~/.safe-chain/bin/safe-chain
+  set sc_current (~/.safe-chain/bin/safe-chain --version 2>/dev/null |
+    string match -rg '([0-9]+\.[0-9]+\.[0-9]+)')
+end
+
+if test "$sc_current" != "$sc_version"
+  set -l tmp (mktemp -d)
+  curl -fsSL "https://github.com/AikidoSec/safe-chain/releases/download/$sc_version/install-safe-chain.sh" \
+    -o $tmp/install.sh
+
+  set -l actual
+  if command -q shasum
+    set actual (shasum -a 256 $tmp/install.sh | awk '{print $1}')
+  else
+    set actual (sha256sum $tmp/install.sh | awk '{print $1}')
+  end
+
+  if test "$actual" != "$sc_sha256"
+    echo "safe-chain: インストーラのハッシュが一致しないため中止する" >&2
+    echo "  expected: $sc_sha256" >&2
+    echo "  actual:   $actual" >&2
+    rm -rf $tmp
+    exit 1
+  end
+
+  echo "safe-chain: $sc_version を導入する（現在: "(test -n "$sc_current"; and echo $sc_current; or echo なし)"）"
+  env HOME=$tmp sh $tmp/install.sh --install-dir $HOME/.safe-chain
+  rm -rf $tmp
 end
 
 # --- fisher -------------------------------------------------------------
