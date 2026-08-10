@@ -49,11 +49,28 @@ dotfiles.default_mode = "symlink"
 # 生成物は ~/.config/fish 側に留まる。
 "~/.config/fish" = { source = "config/fish", mode = "symlink-each" }
 
-# `mise bootstrap` の最後に実行される。fish_plugins に列挙した
-# プラグインを導入するため、その前提となる fisher を用意する。
+# `mise bootstrap` の最後に実行される。brew で入らない依存を揃える。
 [tasks.bootstrap]
-description = "fisher を導入し fish_plugins のプラグインを同期する"
+description = "safe-chain と fisher を導入し fish プラグインを同期する"
 run = '''
+# --- safe-chain ---------------------------------------------------------
+# npm / npx / yarn 等をラップして検査を挟むツール。brew formula が無いため
+# 公式インストーラを使う。バイナリのチェックサム検証はインストーラが行う。
+#
+# インストーラは最後に `safe-chain setup` を走らせ、$HOME 配下のシェル設定へ
+# 読み込み行を追記する。config.fish はリポジトリへの symlink であるため、
+# これを許すとリポジトリが書き換えられる（既存行を末尾へ移動する挙動を確認済み）。
+# よって使い捨ての HOME を与えて setup の書き込みを隔離し、バイナリのみを
+# --install-dir に配置する。シェルへの配線は config.fish が管理する。
+if not test -x ~/.safe-chain/bin/safe-chain
+  set -l throwaway (mktemp -d)
+  curl -fsSL https://github.com/AikidoSec/safe-chain/releases/latest/download/install-safe-chain.sh \
+    | env HOME=$throwaway sh -s -- --install-dir $HOME/.safe-chain
+  rm -rf $throwaway
+end
+
+# --- fisher -------------------------------------------------------------
+# fish_plugins に列挙したプラグインを導入するため、その前提を用意する。
 if not functions -q fisher
   curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
   fisher install jorgebucaran/fisher

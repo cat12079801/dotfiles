@@ -34,9 +34,11 @@ set fish_pager_color_description B3A06D yellow
 set fish_pager_color_prefix white --bold --underline
 set fish_pager_color_progress brwhite --background=cyan
 
-starship init fish | source
+# いずれも「起動時に初期化コードを読み込む」だけで、導入は行わない。
+# 実体の導入は mise.toml の [bootstrap.packages] が担う。
+command -q starship; and starship init fish | source
 
-mise activate fish | source
+command -q mise; and mise activate fish | source
 
 alias p8="ping 8.8.8.8"
 alias vim="nvim"
@@ -80,11 +82,17 @@ alias gstp="git stash pop"
 alias gstd="git stash drop"
 alias gsf="git branch | fzf | xargs git switch"
 
-source ~/.safe-chain/scripts/init-fish.fish # Safe-chain Fish initialization script
-
+# Safe-chain。npm / npx / yarn 等をラップして検査を挟む。
+# 導入は mise.toml の [tasks.bootstrap] が担う。
+# この行は safe-chain setup が生成したものだが、setup を再実行すると
+# 本ファイルを書き換えてしまうため、以降は本ファイル側で管理する。
+test -f ~/.safe-chain/scripts/init-fish.fish
+  and source ~/.safe-chain/scripts/init-fish.fish
 
 # for asana mcp
-if status is-interactive
+# security は macOS 固有のため存在を確認する。コマンド自体が無い場合の
+# エラーは fish がコマンド解決時に出すもので 2>/dev/null では抑止できない。
+if status is-interactive; and command -q security
   set -gx ASANA_CLIENT_ID     (security find-generic-password -a "$USER" -s asana-mcp-client-id     -w 2>/dev/null)
   set -gx ASANA_CLIENT_SECRET (security find-generic-password -a "$USER" -s asana-mcp-client-secret -w 2>/dev/null)
 end
