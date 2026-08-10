@@ -71,21 +71,18 @@ fisher・fish 本体・各種 CLI（OrbStack 等）が `completions/` `conf.d/` 
 なお `symlink-each` がリンクするのは git の追跡状況ではなく **ソースディレクトリに
 物理的に存在するファイル**である。リポジトリに生成物を置くと、それも配布対象になる。
 
+### safe-chain の扱い
+
+`safe-chain setup` を実行してはならない。config.fish 内の読み込み行を検出して
+**末尾へ移動する形で書き換える**ため、リポジトリへの symlink である config.fish が
+汚れる。シェルへの配線は config.fish 側で管理しており、setup は不要である。
+
+`[tasks.bootstrap]` は公式インストーラを使うが、インストーラ自身が末尾で setup を
+走らせるため、使い捨ての `HOME` を与えて書き込みを隔離している。
+
 ## 既知の問題
 
-### P1. config.fish がツール未導入の環境で起動エラーを出す
-
-クリーンな環境で fish を起動すると 3 件のエラーが出る（起動自体は継続する）。
-
-- `starship init fish | source` — starship 未導入時に `Unknown command`
-- `mise activate fish | source` — mise 未導入時に `Unknown command`
-- `source ~/.safe-chain/scripts/init-fish.fish` — **存在チェックがなく、ファイルが無いと必ず失敗する**
-
-前 2 者は `[bootstrap.packages]` により `mise bootstrap` 経由なら解消するが、
-safe-chain はパッケージ管理外のため残る。いずれも `command -v` / `test -f` で
-ガードするのが妥当である。コンテナ検証を行う場合はこの修正が前提になる。
-
-### P2. config.fish 内の不整合
+### P1. config.fish 内の不整合
 
 - `set PATH ~/.asdf/shims $PATH` — asdf 未インストールのため、存在しないディレクトリを PATH に積んでいる
 - `if [ "(type lsd >/dev/null 2>&1)" ]` — **コマンド置換が `$(...)` になっておらず常に真**になる壊れた条件式
@@ -99,7 +96,7 @@ safe-chain はパッケージ管理外のため残る。いずれも `command -v
 - **abbr へ**: git 系 26 個（`ga` `gcm` `gd` `gl` `gs` 等）。展開されるため履歴に実コマンドが残り、補完も効く
 - **alias のまま**: `ls`→`lsd`、`vim`→`nvim`、`grep --color`。省略記法ではなくコマンド自体の置換であるため
 - **関数化**: `gsf`（`git branch | fzf | xargs git switch`）
-- 併せて P2 の壊れた `lsd` 判定を修正する
+- 併せて P1 の壊れた `lsd` 判定を修正する。`command -q lsd` が正しい書き方である
 
 ### 方針 B: gwq の導入
 
@@ -120,20 +117,26 @@ safe-chain はパッケージ管理外のため残る。いずれも `command -v
 - Linux コンテナ（`debian:bookworm-slim` + mise 公式インストーラ）で
   `mise bootstrap dotfiles apply` が動作し、`status` が全件 applied になること
 - リポジトリを読み取り専用でマウントしても適用が完了すること（＝リポジトリへ書き戻さない）
+- ツールが何も入っていない環境でも fish 起動時の stderr が空であること
 
 構成の方向性:
 
-- **ローカル**: リポジトリを `ro` でマウントしたコンテナに適用し、`fish -c` の
+- **ローカル**: リポジトリを `ro` でマウントしたコンテナに適用し、fish 起動時の
   stderr が空であること・`mise bootstrap dotfiles status` が全件 applied であることを検査する
 - **CI**: GitHub Actions。本リポジトリは public のため macOS runner も無料で使える。
   Linux コンテナジョブで高速に回し、macOS runner で実環境に近い検証を行う二段構成が妥当
 - 2 回連続実行して 2 回目が no-op になること（冪等性）も検査項目に含める
 
+検査は必ず **`fish -i`（対話モード）** で行う。`fish -c` では
+`status is-interactive` で囲われたブロックが実行されず、
+そこに潜むエラーを取りこぼす。コンテナでは `TERM` の設定も要る。
+
 制約:
 
 - Linux コンテナで検証できるのは symlink 配置・fish の起動・設定ファイルの構文まで。
   Homebrew の prefix、macOS keychain（`security` コマンド）、macOS defaults は検証できない
-- P1 を解消しないと、コンテナでの fish 起動が常にエラーを出すため検査が成立しない
+- `[tasks.bootstrap]` の safe-chain 導入は Linux コンテナで検証済みだが、
+  macOS 上での新規導入は未検証である（既存環境では導入済みのため分岐に入らない）
 
 ## このリポジトリの Git 運用
 
