@@ -6,6 +6,7 @@ set PATH ~/.asdf/shims $PATH
 set PATH ~/.cargo/bin $PATH
 
 set PATH ~/.orbstack/bin $PATH
+set PATH ~/Library/Python/3.9/bin $PATH
 
 set fish_color_normal normal
 set fish_color_command a1b56c
@@ -78,3 +79,12 @@ alias gstl="git stash list"
 alias gstp="git stash pop"
 alias gstd="git stash drop"
 alias gsf="git branch | fzf | xargs git switch"
+
+source ~/.safe-chain/scripts/init-fish.fish # Safe-chain Fish initialization script
+
+
+# for asana mcp
+if status is-interactive
+  set -gx ASANA_CLIENT_ID     (security find-generic-password -a "$USER" -s asana-mcp-client-id     -w 2>/dev/null)
+  set -gx ASANA_CLIENT_SECRET (security find-generic-password -a "$USER" -s asana-mcp-client-secret -w 2>/dev/null)
+end
