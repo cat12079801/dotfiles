@@ -26,12 +26,18 @@ macOS (Apple Silicon) / fish + tmux + nvim を中心とした個人用 dotfiles�
 ├── mise.toml                    デプロイ定義。これが唯一の配置の正である
 ├── README.md                    セットアップ手順
 │
+├── ci/verify.sh                 適用の検査本体。ローカルと CI で共用する
+├── ci/run-container.sh          ローカルで verify.sh をコンテナ実行する
+├── .github/workflows/verify.yml Linux と macOS の 2 環境で検査する
+├── .github/dependabot.yml       GitHub Actions の更新追従
+│
 ├── gitconfig            → ~/.gitconfig
 ├── commit_template              gitconfig の commit.template から参照
 ├── zshrc                → ~/.zshrc  エージェントのツール実行が読む
 ├── tmux.conf            → ~/.tmux.conf
 ├── tmux/ip.sh                   tmux status-left から呼ばれる
 ├── ideavimrc            → ~/.ideavimrc
+├── ssh/github.conf      → ~/.ssh/config.d/github.conf
 │
 └── config/
     ├── fish/            → ~/.config/fish   （symlink-each）
@@ -39,9 +45,15 @@ macOS (Apple Silicon) / fish + tmux + nvim を中心とした個人用 dotfiles�
     │   ├── fish_plugins
     │   └── functions/  fish_user_key_bindings.fish, ccusage.fish, gsf.fish
     ├── git/ignore       → ~/.config/git    グローバル gitignore
+    ├── gwq/config.toml  → ~/.config/gwq    git worktree 管理 CLI
     ├── nvim/init.vim    → ~/.config/nvim   vim-plug 構成
     └── starship.toml    → ~/.config/starship.toml
 ```
+
+`~/.ssh/config` 本体は管理下に置かない。業務・顧客のホスト名や踏み台の情報が
+公開リポジトリへ載る経路を作らないため、および config を書き換えるツールが
+リポジトリを汚すのを避けるためである。汎用の断片のみを `Include` で読ませる。
+`~/.claude/settings.json` も同じ理由で管理外とする（組織の配布内容を含む）。
 
 ## デプロイ
 
@@ -94,47 +106,67 @@ fisher・fish 本体・各種 CLI（OrbStack 等）が `completions/` `conf.d/` 
 `~/.local/share/fish/fish_history` にあり、`- cmd: ` の**7 文字**を除いた残りが
 コマンド本体である（8 文字と誤ると先頭 1 文字が欠けて集計を誤る）。
 
-## 今後の方針
+## worktree の扱い
 
-### 方針 A: gwq の導入
+worktree は [gwq](https://github.com/d-kuro/gwq) で管理する。設定は
+`config/gwq/config.toml`。`basedir` と `naming.template` が配置を決める。
 
-[d-kuro/gwq](https://github.com/d-kuro/gwq) は git worktree 管理 CLI。
-`~/CLAUDE.md` の worktree 規則 `~/workspace/worktrees/<repo-name>/<branch-name>` を
-`worktree.basedir` + `naming.template` にそのまま写せる。
+gwq は独自のレジストリを持たず**ファイルシステムを走査する**ため、手動で作った
+worktree も認識する。逆に言えば、`basedir` を実際の配置と一致させることが認識の条件である。
 
-- `brew:d-kuro/tap/gwq` を `[bootstrap.packages]` に追加
-- 設定 `~/.config/gwq/config.toml` を `[dotfiles]` エントリに追加
-- 補完は `gwq completion fish` の**生成物**であるため、リポジトリではなく
-  `~/.config/fish/completions/` に置く。`[dotfiles]` で管理してはならない
-- 導入後は `gsf` 相当のワークフローが不要になる可能性がある
+制約が 2 つある。
 
-### 方針 B: コンテナおよび CI での適用検証
+- **gwq はブランチ名のスラッシュを常に平坦化する。** `fix/foo` は `<repo>/fix-foo`
+  になり入れ子にはできない。`sanitize_chars` を空にしても恒等変換を書いても変わらない
+- **Claude Code のハーネスが作る worktree の名前は制御できない。**
+  `WorktreeCreate` フックで置き換えられるが、`~/.claude/settings.json` の
+  `allowManagedHooksOnly` が true であり、組織の管理設定でユーザ定義フックは
+  ブロックされる。名前を揃える手段は無いので、`gwq cd` で名前を意識せず選ぶ
 
-クリーンな環境に本 dotfiles を適用できるかを継続的に確認する。以下は検証済みである。
+`gwq cd` のシェル統合は `[tasks.bootstrap]` が `~/.config/fish/conf.d/gwq.fish` を
+生成することで成立する。**`completions/` に置いてはならない**。生成物には
+`function gwq` ラッパーが含まれ、`completions/` は補完要求時にしか読まれないため
+ラッパーが定義されず `gwq cd` が動かない。生成物の内容は生成時点の
+`cd.launch_shell` に依存する。
 
-- Linux コンテナ（`debian:bookworm-slim` + mise 公式インストーラ）で
-  `mise bootstrap dotfiles apply` が動作し、`status` が全件 applied になること
-- リポジトリを読み取り専用でマウントしても適用が完了すること（＝リポジトリへ書き戻さない）
-- ツールが何も入っていない環境でも fish 起動時の stderr が空であること
+## 検証
 
-構成の方向性:
+クリーンな環境へ適用できるかを検査する。検査本体は `ci/verify.sh` で、
+ローカルのコンテナと CI の双方から同じものを実行する。
 
-- **ローカル**: リポジトリを `ro` でマウントしたコンテナに適用し、fish 起動時の
-  stderr が空であること・`mise bootstrap dotfiles status` が全件 applied であることを検査する
-- **CI**: GitHub Actions。本リポジトリは public のため macOS runner も無料で使える。
-  Linux コンテナジョブで高速に回し、macOS runner で実環境に近い検証を行う二段構成が妥当
-- 2 回連続実行して 2 回目が no-op になること（冪等性）も検査項目に含める
+```sh
+./ci/run-container.sh    # ローカル。リポジトリを ro でマウントする
+```
 
-検査は必ず **`fish -i`（対話モード）** で行う。`fish -c` では
-`status is-interactive` で囲われたブロックが実行されず、
-そこに潜むエラーを取りこぼす。コンテナでは `TERM` の設定も要る。
+CI は GitHub Actions で Linux コンテナと macOS runner の二段。本リポジトリは
+public のため macOS runner も無料で使える。
 
-制約:
+検査を書き足すときの注意:
+
+- **`fish -i`（対話モード）で検査する。** `fish -c` では `status is-interactive` で
+  囲われたブロックが実行されず、そこに潜むエラーを取りこぼす。コンテナでは
+  `TERM` の設定も要る
+- **生成物の流入検査は「増えた行」だけを見る。** 適用によってグローバル gitignore が
+  配置され、それまで未追跡だったものが無視対象に変わるため、減る分は正常である
+
+現状の限界:
 
 - Linux コンテナで検証できるのは symlink 配置・fish の起動・設定ファイルの構文まで。
-  Homebrew の prefix、macOS keychain（`security` コマンド）、macOS defaults は検証できない
-- `[tasks.bootstrap]` の safe-chain 導入は Linux コンテナで検証済みだが、
-  macOS 上での新規導入は未検証である（既存環境では導入済みのため分岐に入らない）
+  Homebrew の prefix、macOS keychain（`security`）、macOS defaults は検証できない
+- macOS ジョブの `mise bootstrap packages status` は formula 名の妥当性を**検証できていない**。
+  未導入と名前の誤りを区別せず、どちらも `missing` になる。実効性を持たせるには
+  実際に導入するか `brew info` で個別に存在確認する必要がある
+- `[tasks.bootstrap]` の safe-chain 導入は macOS 上で未検証である
+  （既存環境では導入済みのため分岐に入らない）
+
+## 手で更新するもの
+
+dependabot は GitHub Actions のみを対象とする。以下は追従しないため手で上げる。
+
+- **safe-chain のバージョンとハッシュ**（`mise.toml` の `[tasks.bootstrap]`）。
+  セキュリティツールであり意図的に固定している。更新は版とハッシュを
+  書き換えるコミットとして行う
+- `[bootstrap.packages]` は全て `latest` のため追従は自動
 
 ## このリポジトリの Git 運用
 
