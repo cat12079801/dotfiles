@@ -17,6 +17,7 @@ dotfiles.default_mode = "symlink"
 #   lsd           … config.fish の alias ls
 #   fzf           … fisher の jethrokuan/fzf、alias gsf
 #   gh            … gitconfig の credential helper
+#   gwq           … git worktree 管理 CLI
 [bootstrap.packages]
 "brew:fish"      = "latest"
 "brew:starship"  = "latest"
@@ -26,6 +27,11 @@ dotfiles.default_mode = "symlink"
 "brew:lsd"       = "latest"
 "brew:fzf"       = "latest"
 "brew:gh"        = "latest"
+"brew:d-kuro/tap/gwq" = "latest"
+
+# gwq は本家 formula が無く tap から取得する。
+[bootstrap.brew.taps]
+"d-kuro/tap" = "https://github.com/d-kuro/homebrew-tap.git"
 
 # tmux のプラグインマネージャ。tmux.conf 末尾の `run '~/.tmux/plugins/tpm/tpm'`
 # が参照するため、これが無いと tmux のプラグインが一切読み込まれない。
@@ -48,6 +54,7 @@ dotfiles.default_mode = "symlink"
 "~/.ssh/config.d/github.conf" = "ssh/github.conf"
 
 "~/.config/git"           = "config/git"
+"~/.config/gwq"           = "config/gwq"
 "~/.config/nvim"          = "config/nvim"
 "~/.config/starship.toml" = "config/starship.toml"
 
@@ -121,6 +128,14 @@ if test "$sc_current" != "$sc_version"
   echo "safe-chain: $sc_version を導入する（現在: "(test -n "$sc_current"; and echo $sc_current; or echo なし)"）"
   env HOME=$tmp sh $tmp/install.sh --install-dir $HOME/.safe-chain
   rm -rf $tmp
+end
+
+# --- gwq ----------------------------------------------------------------
+# 補完スクリプトは生成物なのでリポジトリではなく ~/.config/fish 側へ出す。
+# `gwq cd` を現在のシェルで動かすラッパー関数もこの中に含まれるため、
+# 補完の生成は cd.launch_shell = false の動作条件である。
+if command -q gwq
+  gwq completion fish > ~/.config/fish/completions/gwq.fish
 end
 
 # --- fisher -------------------------------------------------------------

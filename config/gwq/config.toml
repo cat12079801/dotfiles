@@ -1,0 +1,34 @@
+# gwq: git worktree 管理 CLI の設定。
+#
+# basedir と naming.template が worktree の配置を決める。既定は
+# ~/worktrees + {{.Host}}/{{.Owner}}/{{.Repository}}/{{.Branch}} だが、
+# 既存の worktree をそのまま認識させるため現行の配置に合わせている。
+# gwq は独自のレジストリを持たずファイルシステムを走査するため、
+# ここを実際の配置と一致させることが認識の条件になる。
+
+[worktree]
+basedir = "~/workspace/worktrees"
+auto_mkdir = true
+
+[naming]
+template = "{{.Repository}}/{{.Branch}}"
+
+# gwq はブランチ名のスラッシュを常に平坦化する。fix/foo は
+# <basedir>/<repo>/fix-foo になり、入れ子にはできない。sanitize_chars を
+# 空にしても恒等変換を書いても変わらないため、この挙動は受け入れる。
+# 手動で作った入れ子の worktree（<repo>/fix/foo）も gwq はそのまま認識する。
+
+[cd]
+# false にすると `gwq cd` が新しいシェルを起動せず、現在のシェルで移動する。
+# この動作は補完スクリプトに含まれるラッパー関数が担うため、
+# ~/.config/fish/completions/gwq.fish の生成が前提になる。
+# 補完は生成物なのでリポジトリには置かない（[tasks.bootstrap] で生成する）。
+launch_shell = false
+auto_cd_on_add = false
+
+[finder]
+preview = true
+
+[ui]
+icons = true
+tilde_home = true
