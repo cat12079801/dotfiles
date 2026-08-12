@@ -50,10 +50,13 @@ macOS (Apple Silicon) / fish + tmux + nvim を中心とした個人用 dotfiles�
     └── starship.toml    → ~/.config/starship.toml
 ```
 
-`~/.ssh/config` 本体は管理下に置かない。業務・顧客のホスト名や踏み台の情報が
-公開リポジトリへ載る経路を作らないため、および config を書き換えるツールが
-リポジトリを汚すのを避けるためである。汎用の断片のみを `Include` で読ませる。
-`~/.claude/settings.json` も同じ理由で管理外とする（組織の配布内容を含む）。
+**本リポジトリは public である。** 業務・顧客の情報が載る経路を作らないため、
+以下は管理下に置かない。併せて、外部のツールが書き換えるファイルを symlink に
+すると書き込みがリポジトリへ貫通するという理由もある。
+
+- `~/.ssh/config` — ホスト名や踏み台の情報を含み得る。汎用の断片のみを
+  `Include` で読ませる（`ssh/github.conf`）
+- `~/.claude/settings.json` — 環境固有の配布内容を含み得る
 
 ## デプロイ
 
@@ -114,14 +117,12 @@ worktree は [gwq](https://github.com/d-kuro/gwq) で管理する。設定は
 gwq は独自のレジストリを持たず**ファイルシステムを走査する**ため、手動で作った
 worktree も認識する。逆に言えば、`basedir` を実際の配置と一致させることが認識の条件である。
 
-制約が 2 つある。
+**gwq はブランチ名のスラッシュを常に平坦化する。** `fix/foo` は `<repo>/fix-foo`
+になり入れ子にはできない。`sanitize_chars` を空にしても恒等変換を書いても変わらない。
+手動で作った入れ子の worktree（`<repo>/fix/foo`）と混在するが、どちらも認識される。
 
-- **gwq はブランチ名のスラッシュを常に平坦化する。** `fix/foo` は `<repo>/fix-foo`
-  になり入れ子にはできない。`sanitize_chars` を空にしても恒等変換を書いても変わらない
-- **Claude Code のハーネスが作る worktree の名前は制御できない。**
-  `WorktreeCreate` フックで置き換えられるが、`~/.claude/settings.json` の
-  `allowManagedHooksOnly` が true であり、組織の管理設定でユーザ定義フックは
-  ブロックされる。名前を揃える手段は無いので、`gwq cd` で名前を意識せず選ぶ
+Claude Code のハーネスが作る worktree は自動生成の名前を持つ。名前を覚える必要が
+ないよう `gwq cd` のファジーファインダで選ぶ。
 
 `gwq cd` のシェル統合は `[tasks.bootstrap]` が `~/.config/fish/conf.d/gwq.fish` を
 生成することで成立する。**`completions/` に置いてはならない**。生成物には
