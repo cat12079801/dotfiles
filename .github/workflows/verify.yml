@@ -1,0 +1,70 @@
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # 配置そのものの検証。速いので主検査として使う。
+  # Homebrew の prefix、macOS keychain、macOS defaults はここでは検証できない。
+  linux:
+    runs-on: ubuntu-latest
+    container: debian:bookworm-slim
+    steps:
+      - name: 依存を導入する
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update -qq
+          apt-get install -y -qq git curl ca-certificates fish ncurses-term
+
+      - uses: actions/checkout@v4
+        with:
+          path: dotfiles-src
+
+      - name: リポジトリを ~/dotfiles へ配置する
+        # dotfiles.root が ~/dotfiles 固定であるため、その位置に置く。
+        run: cp -r "$GITHUB_WORKSPACE/dotfiles-src" "$HOME/dotfiles"
+
+      - name: mise を導入する
+        run: |
+          curl -fsSL https://mise.run | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: 検証する
+        env:
+          TERM: xterm-256color
+        run: bash "$HOME/dotfiles/ci/verify.sh"
+
+  # 実環境に近い検証。Homebrew が前提の [bootstrap.packages] を確認する。
+  # public リポジトリのため macOS runner も無料で使える。
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: dotfiles-src
+
+      - name: リポジトリを ~/dotfiles へ配置する
+        run: cp -r "$GITHUB_WORKSPACE/dotfiles-src" "$HOME/dotfiles"
+
+      - name: mise と fish を導入する
+        run: brew install mise fish
+
+      - name: パッケージ定義が解決できることを確認する
+        # 実際には導入しない。formula 名と tap の妥当性のみを見る。
+        # 導入まで行うと数分かかり、得られる情報は増えない。
+        run: |
+          cd "$HOME/dotfiles"
+          mise trust
+          mise bootstrap packages status
+
+      - name: 検証する
+        env:
+          TERM: xterm-256color
+        run: |
+          # runner には既定の設定ファイルがあり、mise は上書きを拒否する。
+          # 使い捨ての環境なので退けてから適用する。
+          rm -f "$HOME/.zshrc" "$HOME/.gitconfig"
+          bash "$HOME/dotfiles/ci/verify.sh"
