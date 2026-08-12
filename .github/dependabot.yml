@@ -1,0 +1,20 @@
+version: 2
+
+updates:
+  # 対象は GitHub Actions のみ。本リポジトリには npm や go 等の
+  # 依存定義が無く、他の ecosystem を足しても対象が見つからない。
+  #
+  # brew パッケージ（mise.toml の [bootstrap.packages]）と safe-chain の
+  # バージョンは dependabot の対象外であるため、これらは手で更新する。
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    # 1 件ずつ PR が立つと数が増えるため、まとめて 1 本にする。
+    groups:
+      actions:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: chore
