@@ -131,11 +131,17 @@ if test "$sc_current" != "$sc_version"
 end
 
 # --- gwq ----------------------------------------------------------------
-# 補完スクリプトは生成物なのでリポジトリではなく ~/.config/fish 側へ出す。
-# `gwq cd` を現在のシェルで動かすラッパー関数もこの中に含まれるため、
-# 補完の生成は cd.launch_shell = false の動作条件である。
+# 生成物なのでリポジトリではなく ~/.config/fish 側へ出す。
+#
+# 出力先は completions/ ではなく conf.d/ である。cd.launch_shell = false の
+# とき、この出力には `gwq cd` を現在のシェルで動かす `function gwq` ラッパーが
+# 含まれる。completions/ は補完要求時にしか読まれずラッパーが定義されないため、
+# 起動時に読まれる conf.d/ でなければ `gwq cd` が動かない。
+#
+# ラッパーは生成時点の cd.launch_shell を見て出力が変わる。[dotfiles] の適用は
+# 本タスクより前に走るため、設定が反映された状態で生成される。
 if command -q gwq
-  gwq completion fish > ~/.config/fish/completions/gwq.fish
+  gwq completion fish > ~/.config/fish/conf.d/gwq.fish
 end
 
 # --- fisher -------------------------------------------------------------
