@@ -18,6 +18,17 @@ dotfiles.default_mode = "symlink"
 #   fzf           … fisher の jethrokuan/fzf、alias gsf
 #   gh            … gitconfig の credential helper
 #   gwq           … git worktree 管理 CLI
+#
+# 以下は設定ファイルからは参照されないが、日常的に使うコマンドである。
+# 利用実績は fish 履歴で確認した。
+#   aws-vault     … AWS の認証情報を扱う。最頻
+#   bat           … cat の代替
+#   claude-code   … Claude Code。cask のため brew-cask: を使う
+#   awscli        … aws コマンド
+#   gnupg         … gpg コマンド
+#   libpq         … psql コマンド。keg-only のため PATH を別途通す必要がある
+#   age           … ファイル暗号化
+#   ripgrep       … rg コマンド
 [bootstrap.packages]
 "brew:fish"      = "latest"
 "brew:starship"  = "latest"
@@ -28,6 +39,15 @@ dotfiles.default_mode = "symlink"
 "brew:fzf"       = "latest"
 "brew:gh"        = "latest"
 "brew:d-kuro/tap/gwq" = "latest"
+
+"brew:aws-vault"   = "latest"
+"brew:bat"         = "latest"
+"brew-cask:claude-code" = "latest"
+"brew:awscli"      = "latest"
+"brew:gnupg"       = "latest"
+"brew:libpq"       = "latest"
+"brew:age"         = "latest"
+"brew:ripgrep"     = "latest"
 
 # gwq は本家 formula が無く tap から取得する。
 [bootstrap.brew.taps]

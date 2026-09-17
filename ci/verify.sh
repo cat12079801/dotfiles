@@ -31,12 +31,15 @@ fi
 head_ "2. 全エントリが applied であること"
 status=$(mise bootstrap dotfiles status 2>&1)
 echo "$status"
-if [ -z "$status" ]; then
-  ng "status が空である"
-elif echo "$status" | grep -qv "applied"; then
+# status には配置状況の表以外の情報（History 等）も混ざる。mise の版によって
+# 増減するため、~/ で始まる表の行だけを対象にする。
+entries=$(printf '%s\n' "$status" | grep '^~/')
+if [ -z "$entries" ]; then
+  ng "エントリが 1 件も無い"
+elif printf '%s\n' "$entries" | grep -qv "applied"; then
   ng "applied でないエントリがある"
 else
-  ok "全エントリが applied である"
+  ok "全 $(printf '%s\n' "$entries" | wc -l | tr -d ' ') エントリが applied である"
 fi
 
 head_ "3. 冪等性（2 回目が no-op であること）"
