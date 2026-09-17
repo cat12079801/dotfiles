@@ -27,9 +27,19 @@ mise bootstrap
 ### 手で行う必要があるもの
 
 - tmux のプラグイン導入 — tmux 内で `C-b I`
+- GitHub の host key を登録する — `~/.ssh/known_hosts` が無いと GitHub への SSH が
+  すべて失敗する。`gitconfig` の `insteadOf` が https を SSH へ書き換えるため、
+  `git clone https://github.com/...` や vim-plug のプラグイン導入も同時に止まる。
+  GitHub が公開している鍵を TLS 経由で取得して登録する（`ssh-keyscan` は経路上の
+  改竄を検出できないため使わない）
+
+  ```sh
+  umask 077 && gh api meta --jq '.ssh_keys[] | "github.com \(.)"' >> ~/.ssh/known_hosts
+  ```
+
 - SSH の多重化を有効にする — `~/.ssh/config` の先頭付近（OrbStack の Include の後、
-  最初の `Host` ブロックより前）に次の 1 行を足す。`~/.ssh/config` 本体は
-  業務・顧客のホスト名を含み得るため管理下に置いていない
+  最初の `Host` ブロックより前）に次の 1 行を足す。ファイルが無ければ 600 で作る。
+  `~/.ssh/config` 本体は業務・顧客のホスト名を含み得るため管理下に置いていない
 
   ```
   Include ~/.ssh/config.d/*.conf
