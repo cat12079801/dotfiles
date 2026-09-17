@@ -19,7 +19,7 @@ mise bootstrap
 1. `[bootstrap.packages]` — 依存する Homebrew パッケージの導入
 2. `[bootstrap.repos]` — tpm（tmux プラグインマネージャ）の clone
 3. `[dotfiles]` — 設定ファイルの symlink 配置
-4. `[tasks.bootstrap]` — safe-chain の導入、fish プラグインの同期、gwq のシェル統合の生成
+4. `[tasks.bootstrap]` — safe-chain と vim-plug の導入、fish・nvim プラグインの同期、gwq のシェル統合の生成
 
 適用せずに内容だけ確認する場合は `mise bootstrap --dry-run`。
 配置状況の確認は `mise bootstrap dotfiles status`。

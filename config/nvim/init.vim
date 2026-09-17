@@ -78,7 +78,12 @@ call plug#end()
 
 
 " plugin settings ------------------------------------
-colorscheme nightfox
+" 以下はプラグインの実体を要求する。PlugInstall はこの init.vim を読み込んでから
+" 導入を始めるため、未導入の状態で無条件に実行すると E185 / E5108 で中断し、
+" 導入そのものが完了しない。導入済みのときだけ適用する。
+if isdirectory(g:plugs['nightfox.nvim'].dir)
+  colorscheme nightfox
+endif
 
 " 現在開いているファイルをハイライトしつつNERDTreeを開く
 nnoremap <C-f> :NERDTreeFind<CR>
@@ -104,5 +109,7 @@ nmap gp <Plug>(GitGutterPrevHunk)
 " norcalli/nvim-colorizer.lua に必要
 " One line setup. This will create an autocmd for FileType * to highlight every filetype.
 " NOTE: You should add this line after/below where your plugins are setup.
-lua require'colorizer'.setup()
+if isdirectory(g:plugs['nvim-colorizer.lua'].dir)
+  lua require'colorizer'.setup()
+endif
 " plugin settings ------------------------------------

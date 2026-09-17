@@ -67,7 +67,7 @@ dotfiles.default_mode = "symlink"
 
 # `mise bootstrap` の最後に実行される。brew で入らない依存を揃える。
 [tasks.bootstrap]
-description = "safe-chain と fisher を導入し fish プラグインを同期する"
+description = "safe-chain・vim-plug・fisher を導入しプラグインを同期する"
 run = '''
 # --- ssh --------------------------------------------------------------
 # ControlPath 用のソケット置き場。ssh は親ディレクトリを自動作成しない。
@@ -142,6 +142,26 @@ end
 # 本タスクより前に走るため、設定が反映された状態で生成される。
 if command -q gwq
   gwq completion fish > ~/.config/fish/conf.d/gwq.fish
+end
+
+# --- vim-plug -----------------------------------------------------------
+# config/nvim/init.vim が plug#begin を呼ぶため、これが無いと nvim は起動時に
+# E117 を出し、Plug 行がすべて無効になってプラグインが一切読まれない。
+# brew formula は無く、公式の案内どおり単一ファイルを配置する。
+#
+# 配置先は nvim の autoload であってリポジトリではない。init.vim が
+# plug_home を指定していないため、プラグイン本体も ~/.local/share/nvim/plugged
+# 側に入る。
+if command -q nvim
+  set -l plug_path ~/.local/share/nvim/site/autoload/plug.vim
+  if not test -f $plug_path
+    curl -fsSL --create-dirs -o $plug_path \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  end
+
+  # 未導入のプラグインのみを入れる。導入済みなら何もしないため毎回実行してよい。
+  # --sync は headless で非同期のまま終了するのを防ぐ。
+  nvim --headless "+PlugInstall --sync" +qa
 end
 
 # --- fisher -------------------------------------------------------------
